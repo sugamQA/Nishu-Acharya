@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1125" role="img" aria-labelledby="title desc">
+  <title id="title">Professional portrait placeholder</title>
+  <desc id="desc">A refined abstract portrait card for Nishu Acharya.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b0f19"/>
+      <stop offset=".45" stop-color="#1f2937"/>
+      <stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+    <radialGradient id="halo" cx=".32" cy=".22" r=".8">
+      <stop offset="0" stop-color="#d7b879" stop-opacity=".62"/>
+      <stop offset=".5" stop-color="#39a7ff" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#0b0f19" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="1125" fill="url(#bg)"/>
+  <rect width="900" height="1125" fill="url(#halo)"/>
+  <circle cx="450" cy="342" r="142" fill="#f7f4ee" opacity=".92"/>
+  <path d="M184 1080c28-258 142-411 266-411s238 153 266 411z" fill="#f7f4ee" opacity=".9"/>
+  <path d="M236 1055c38-178 116-286 214-286s176 108 214 286z" fill="#0b0f19" opacity=".28"/>
+  <path d="M210 160h480v805H210z" fill="none" stroke="#d7b879" stroke-opacity=".45" stroke-width="2"/>
+  <text x="450" y="1010" fill="#d7b879" font-family="Inter, Arial, sans-serif" font-size="86" font-weight="700" text-anchor="middle" letter-spacing="6">NA</text>
+</svg>

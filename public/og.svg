@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#070a12"/>
+      <stop offset=".45" stop-color="#102032"/>
+      <stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+    <radialGradient id="r" cx=".18" cy=".22" r=".8">
+      <stop stop-color="#d7b879" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#d7b879" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#r)"/>
+  <text x="96" y="245" fill="#f8fafc" font-family="Georgia, serif" font-size="90">Nishu Acharya</text>
+  <text x="100" y="330" fill="#d7b879" font-family="Inter, Arial, sans-serif" font-size="30">Public Health | Research | Program Design | Health Equity</text>
+  <text x="100" y="415" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="28">Public Health Portfolio</text>
+  <circle cx="1020" cy="315" r="118" fill="none" stroke="#d7b879" stroke-width="3"/>
+  <text x="1020" y="345" fill="#f8fafc" font-family="Georgia, serif" font-size="82" text-anchor="middle">NA</text>
+</svg>
