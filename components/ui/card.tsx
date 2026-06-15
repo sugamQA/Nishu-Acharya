@@ -1,16 +1,23 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import { initialCard, animatedCard } from "./animations"
+
+// Define variants compatible with framer-motion typings
+const cardVariants: Variants = {
+  hidden: initialCard,
+  visible: animatedCard,
+}
 
 const Card = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentPropsWithoutRef<typeof motion.div>
 >(({ className, ...props }, ref) => (
   <motion.div
     ref={ref}
-    initial={initialCard}
-    animate={animatedCard}
+    variants={cardVariants}
+    initial="hidden"
+    animate="visible"
     className={cn(
       "rounded-lg border bg-card text-card-foreground shadow-sm",
       className,
