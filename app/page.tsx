@@ -41,13 +41,12 @@ export default function Home() {
       <LoadingScreen />
       <AnimatedCursor />
       <Nav />
-      <Hero />
+      <section id="home" className="mt-[4rem]"><Hero /></section>
       <AboutSection />
       <Experience />
       <Skills />
       <Certifications />
       <Training />
-      <FeaturedWork />
       <CommunityImpact />
       <Achievements />
       <Gallery />
@@ -62,6 +61,9 @@ export default function Home() {
 function Hero() {
   return (
     <GlowyWavesHero>
+      <video className="fixed inset-0 w-full h-full object-cover opacity-70 -z-10" autoPlay muted loop>
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260419_065931_e3ca7b53-d32e-4ad5-81de-dc9d6fcfda6d.mp4" type="video/mp4" />
+      </video>
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_.92fr]">
         <div className="text-left">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/40 bg-background/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-foreground/70 dark:border-border/60 dark:bg-background/70 dark:text-foreground/80">
@@ -158,7 +160,7 @@ function Experience() {
         <div className="absolute left-[23px] top-0 h-full w-px bg-gradient-to-b from-blush/40 via-sky/30 to-transparent hidden md:block" />
         <div className="space-y-8">
           {experiences.map((item, index) => (
-            <Reveal key={item.company} delay={index * 0.08}>
+            <Reveal key={`${item.company}-${index}`} delay={index * 0.08}>
               <div className="relative md:pl-16">
                 <div className="absolute left-[13px] top-8 z-10 hidden h-5 w-5 rounded-full border-2 border-blush bg-white shadow-lg shadow-blush/20 md:block dark:bg-ink" />
                 <article className="group relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white/70 p-6 shadow-lg shadow-slate-200/40 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blush/10 dark:border-white/10 dark:bg-white/5 dark:shadow-none">
@@ -329,25 +331,6 @@ function Training() {
   );
 }
 
-function FeaturedWork() {
-  return (
-    <Section id="work" eyebrow="Featured Work" title="A portfolio built for health systems, communities, and evidence-led programs." intro="Each area is framed as a public health capability: measurable, practical, equitable, and grounded in community need.">
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {featuredWork.map(({ title, body, icon: Icon }, index) => (
-          <Reveal key={title} delay={index * 0.05}>
-            <article className="h-full rounded-3xl glass p-6 shadow-luxury transition hover:-translate-y-1">
-              <div className="mb-7 grid h-12 w-12 place-items-center rounded-2xl bg-blush text-white">
-                <Icon className="h-5 w-5" />
-              </div>
-              <h3 className="text-2xl font-semibold">{title}</h3>
-              <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">{body}</p>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-    </Section>
-  );
-}
 
 function CommunityImpact() {
   return (

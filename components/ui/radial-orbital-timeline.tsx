@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Award, Link, Megaphone, Network, Sparkles, GraduationCap, Zap } from "lucide-react";
 
 const iconMap: Record<string, React.ElementType> = {
