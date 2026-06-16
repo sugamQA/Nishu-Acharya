@@ -867,27 +867,27 @@ function CaseStudiesSection() {
       <div className="space-y-10">
         {caseStudies.map((study, i) => (
           <Reveal key={study.title} delay={i * 0.08}>
-            <article className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/85 shadow-md transition-all duration-500 hover:shadow-2xl">
+            <article className="relative overflow-hidden rounded-3xl border border-slate-700/60 bg-slate-900/90 shadow-md transition-all duration-500 hover:shadow-2xl hover:shadow-blue-900/30 hover:border-slate-600">
               {/* Header strip */}
-              <div className="flex items-center justify-between gap-4 border-b border-slate-200 bg-gradient-to-r from-cyan/5 via-electric/5 to-teal/5 px-6 py-4">
+              <div className="flex items-center justify-between gap-4 border-b border-slate-700 bg-slate-800/80 px-6 py-4 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
                   <div className="relative">
-                    <div className="absolute inset-0 rounded-xl bg-cyan/20 blur-md" />
-                    <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-cyan/30 bg-gradient-to-br from-cyan/15 to-electric/10">
-                      <study.icon className="h-5 w-5 text-cyan" />
+                    <div className="absolute inset-0 rounded-xl bg-blue-500/20 blur-md" />
+                    <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-blue-500/40 bg-gradient-to-br from-blue-500/20 to-sky-400/10">
+                      <study.icon className="h-5 w-5 text-blue-400" />
                     </div>
                   </div>
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-400">
                       Case Study · 0{i + 1}
                     </p>
-                    <h3 className="text-lg font-semibold text-slate-900">
+                    <h3 className="text-lg font-semibold text-slate-100">
                       {study.title}
                     </h3>
                   </div>
                 </div>
-                <span className="hidden items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-700 sm:inline-flex">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span className="hidden items-center gap-1.5 rounded-full border border-emerald-500/50 bg-emerald-900/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-300 sm:inline-flex">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                   Success
                 </span>
               </div>
@@ -952,13 +952,12 @@ function PipelineStep({
     <div
       className={`relative p-6 ${
         !isLast
-          ? "border-b border-slate-200 md:border-b-0 md:border-r"
+          ? "border-b border-slate-700 md:border-b-0 md:border-r"
           : ""
       }`}
     >
-      {/* Connector arrow (md+) */}
       {!isLast && (
-        <div className="absolute right-0 top-1/2 hidden h-px w-6 -translate-y-1/2 translate-x-full bg-gradient-to-r from-slate-300 to-transparent md:block" />
+        <div className="absolute right-0 top-1/2 hidden h-px w-6 -translate-y-1/2 translate-x-full bg-gradient-to-r from-slate-600 to-transparent md:block" />
       )}
 
       <div className="flex items-center gap-2">
@@ -973,7 +972,7 @@ function PipelineStep({
           {label}
         </span>
       </div>
-      <p className="mt-3 text-sm leading-6 text-slate-600">{body}</p>
+      <p className="mt-3 text-sm leading-6 text-slate-300">{body}</p>
     </div>
   );
 }
