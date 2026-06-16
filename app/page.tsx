@@ -501,48 +501,85 @@ function ExpertiseSection() {
             </div>
             <span className="text-xs uppercase tracking-[0.2em] text-cyan">Self-assessed proficiency</span>
           </div>
-          <div className="mt-8">
-            <svg viewBox="0 0 800 420" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#3b82f6" />
-                  <stop offset="100%" stopColor="#06b6d4" />
-                </linearGradient>
-              </defs>
+          <div className="mt-8 grid gap-6 lg:grid-cols-5">
+            {/* Bar chart */}
+            <div className="lg:col-span-3">
+              <svg viewBox="0 0 800 420" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#3b82f6" />
+                    <stop offset="100%" stopColor="#06b6d4" />
+                  </linearGradient>
+                </defs>
+                {[0, 20, 40, 60, 80, 100].map((v) => {
+                  const x = 140 + v * 6;
+                  return (
+                    <g key={v}>
+                      <line x1={x} y1="18" x2={x} y2="390" stroke="#e2e8f0" strokeWidth="1" />
+                      <text x={x} y="14" textAnchor="middle" className="text-[10px] fill-slate-400" fontSize="10">{v}%</text>
+                    </g>
+                  );
+                })}
+                <line x1="140" y1="390" x2="740" y2="390" stroke="#cbd5e1" strokeWidth="1.5" />
+                {skills.map((s, i) => {
+                  const barY = 25 + i * 37;
+                  const barH = 26;
+                  const barW = (s.value / 100) * 600;
+                  return (
+                    <g key={s.name}>
+                      <text x="135" y={barY + barH / 2 + 4} textAnchor="end" className="text-[11px] fill-slate-600 font-medium" fontSize="11">{s.name}</text>
+                      <rect x="140" y={barY} width="600" height={barH} rx="4" fill="#f1f5f9" />
+                      <rect x="140" y={barY} width={barW} height={barH} rx="4" fill="url(#barGrad)" opacity="0.85" />
+                      <text x={140 + barW + 8} y={barY + barH / 2 + 3} className="text-[11px] fill-slate-800 font-bold" fontSize="11">{s.value}%</text>
+                    </g>
+                  );
+                })}
+              </svg>
+            </div>
 
-              {/* Y-axis grid lines */}
-              {[0, 20, 40, 60, 80, 100].map((v) => {
-                const x = 140 + v * 6;
-                return (
-                  <g key={v}>
-                    <line x1={x} y1="18" x2={x} y2="390" stroke="#e2e8f0" strokeWidth="1" />
-                    <text x={x} y="14" textAnchor="middle" className="text-[10px] fill-slate-400" fontSize="10">{v}%</text>
-                  </g>
-                );
-              })}
-
-              {/* Bottom axis line */}
-              <line x1="140" y1="390" x2="740" y2="390" stroke="#cbd5e1" strokeWidth="1.5" />
-
-              {/* Bars */}
-              {skills.map((s, i) => {
-                const barY = 25 + i * 37;
-                const barH = 26;
-                const barW = (s.value / 100) * 600;
-                return (
-                  <g key={s.name}>
-                    {/* Label */}
-                    <text x="135" y={barY + barH / 2 + 4} textAnchor="end" className="text-[11px] fill-slate-600 font-medium" fontSize="11">{s.name}</text>
-                    {/* Bar background */}
-                    <rect x="140" y={barY} width="600" height={barH} rx="4" fill="#f1f5f9" />
-                    {/* Bar fill */}
-                    <rect x="140" y={barY} width={barW} height={barH} rx="4" fill="url(#barGrad)" opacity="0.85" />
-                    {/* Value label */}
-                    <text x={140 + barW + 8} y={barY + barH / 2 + 3} className="text-[11px] fill-slate-800 font-bold" fontSize="11">{s.value}%</text>
-                  </g>
-                );
-              })}
-            </svg>
+            {/* Pie chart */}
+            <div className="lg:col-span-2 flex flex-col items-center justify-center">
+              <svg viewBox="0 0 400 400" className="w-full max-w-[340px] h-auto">
+                {(() => {
+                  const total = skills.reduce((sum, s) => sum + s.value, 0);
+                  const colors = ["#3b82f6","#06b6d4","#14b8a6","#6366f1","#8b5cf6","#ec4899","#f43f5e","#f97316","#eab308","#22c55e"];
+                  let startAngle = -90;
+                  const slices = skills.map((s, i) => {
+                    const angle = (s.value / total) * 360;
+                    const endAngle = startAngle + angle;
+                    const sr = (startAngle * Math.PI) / 180;
+                    const er = (endAngle * Math.PI) / 180;
+                    const cx = 200, cy = 200, r = 160;
+                    const x1 = cx + r * Math.cos(sr);
+                    const y1 = cy + r * Math.sin(sr);
+                    const x2 = cx + r * Math.cos(er);
+                    const y2 = cy + r * Math.sin(er);
+                    const large = angle > 180 ? 1 : 0;
+                    const path = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`;
+                    const slice = { path, color: colors[i % colors.length], name: s.name, value: s.value, pct: Math.round((s.value / total) * 100) };
+                    startAngle = endAngle;
+                    return slice;
+                  });
+                  return slices.map((slice) => (
+                    <g key={slice.name}>
+                      <path d={slice.path} fill={slice.color} opacity="0.85" stroke="#fff" strokeWidth="2" />
+                    </g>
+                  ));
+                })()}
+              </svg>
+              {/* Legend */}
+              <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1.5">
+                {skills.map((s, i) => {
+                  const colors = ["#3b82f6","#06b6d4","#14b8a6","#6366f1","#8b5cf6","#ec4899","#f43f5e","#f97316","#eab308","#22c55e"];
+                  return (
+                    <div key={s.name} className="flex items-center gap-2 text-xs">
+                      <span className="inline-block h-2.5 w-2.5 rounded-sm shrink-0" style={{ backgroundColor: colors[i % colors.length] }} />
+                      <span className="text-slate-600 truncate">{s.name}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </Reveal>
