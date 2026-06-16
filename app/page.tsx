@@ -587,8 +587,24 @@ function CompetencyChart() {
         </div>
 
         {/* Pie chart */}
-        <div className="flex flex-col items-center">
-          <div className="w-full max-w-sm space-y-1">
+        <div className="flex flex-col items-center justify-center">
+          <svg viewBox="0 0 400 400" className="w-full max-w-[320px] h-auto">
+            {slices.map((slice) => (
+              <g key={slice.name}>
+                <path
+                  d={slice.path}
+                  fill={slice.color}
+                  opacity={hovered && hovered !== slice.name ? 0.4 : 0.85}
+                  stroke="#fff"
+                  strokeWidth="2"
+                  className="transition-opacity duration-200 cursor-pointer"
+                  onMouseEnter={() => setHovered(slice.name)}
+                  onMouseLeave={() => setHovered(null)}
+                />
+              </g>
+            ))}
+          </svg>
+          <div className="mt-6 w-full max-w-sm space-y-1">
             {slices.map((slice) => {
               const isActive = hovered === slice.name;
               return (
@@ -609,22 +625,6 @@ function CompetencyChart() {
               );
             })}
           </div>
-          <svg viewBox="0 0 400 400" className="w-full max-w-[320px] h-auto mt-4">
-            {slices.map((slice) => (
-              <g key={slice.name}>
-                <path
-                  d={slice.path}
-                  fill={slice.color}
-                  opacity={hovered && hovered !== slice.name ? 0.4 : 0.85}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className="transition-opacity duration-200 cursor-pointer"
-                  onMouseEnter={() => setHovered(slice.name)}
-                  onMouseLeave={() => setHovered(null)}
-                />
-              </g>
-            ))}
-          </svg>
         </div>
       </div>
     </div>
