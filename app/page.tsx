@@ -610,18 +610,19 @@ function ProjectsSection() {
           return (
             <Reveal key={project.title} delay={i * 0.08}>
               <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/25">
-                {/* Blue hover overlay */}
+                {/* Border glow on hover */}
                 <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl border-2 border-blue-400/0 opacity-0 transition-all duration-500 group-hover:border-blue-400/60 group-hover:opacity-100" />
-                <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-blue-600/90 via-blue-600/40 to-blue-600/10 opacity-0 transition-all duration-500 group-hover:opacity-100" />
 
                 {/* Image section */}
                 <div className="relative h-48 shrink-0 overflow-hidden bg-slate-100">
+                  {/* Blue overlay on image only */}
+                  <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-blue-600/80 via-blue-500/30 to-blue-400/10 opacity-0 transition-all duration-500 group-hover:opacity-100" />
                   <img
                     src={project.image}
                     alt={project.title}
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-40"
+                    className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-30"
                   />
                   {/* Category badge */}
                   <div className="absolute right-3 top-3 z-30">
@@ -638,17 +639,17 @@ function ProjectsSection() {
                 </div>
 
                 {/* Content */}
-                <div className="relative z-30 flex flex-1 flex-col px-5 pb-5 pt-9">
-                  <h3 className="text-lg font-bold leading-tight text-slate-900 transition-all duration-500 group-hover:text-white">{project.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-500 line-clamp-2 transition-all duration-500 group-hover:text-white/90">{project.summary}</p>
+                <div className="relative z-30 flex flex-1 flex-col px-5 pb-5 pt-9 bg-white transition-all duration-500 group-hover:bg-blue-50">
+                  <h3 className="text-lg font-bold leading-tight text-slate-900 transition-all duration-500 group-hover:text-blue-800">{project.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-500 line-clamp-2 group-hover:line-clamp-none transition-all duration-500 group-hover:text-slate-700">{project.summary}</p>
                   {/* Impact tags */}
-                  <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4 transition-all duration-500 group-hover:border-white/20">
+                  <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4 transition-all duration-500 group-hover:border-blue-200">
                     {project.impact.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200/60 bg-blue-50/80 px-2.5 py-1 text-[11px] font-semibold text-blue-700 transition-all duration-500 group-hover:bg-white/20 group-hover:text-white group-hover:border-white/30"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200/60 bg-blue-50/80 px-2.5 py-1 text-[11px] font-semibold text-blue-700 transition-all duration-500 group-hover:bg-blue-100 group-hover:border-blue-300"
                       >
-                        <CheckCircle2 className="h-3 w-3 text-blue-500 transition-all duration-500 group-hover:text-white" />
+                        <CheckCircle2 className="h-3 w-3 text-blue-500 transition-all duration-500" />
                         {tag}
                       </span>
                     ))}
