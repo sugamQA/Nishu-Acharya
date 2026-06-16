@@ -16,8 +16,7 @@ import {
   GraduationCap,
   Send,
   Stethoscope,
-  Target,
-  TrendingUp
+  Target
 } from "lucide-react";
 import { AnimatedCursor } from "@/components/animated-cursor";
 import { LoadingScreen } from "@/components/loading-screen";
