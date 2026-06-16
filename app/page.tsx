@@ -501,23 +501,88 @@ function ExpertiseSection() {
             </div>
             <span className="text-xs uppercase tracking-[0.2em] text-cyan">Self-assessed proficiency</span>
           </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {skills.map((skill, i) => (
-              <Reveal key={skill.name} delay={i * 0.04}>
-                <div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium text-slate-900">{skill.name}</span>
-                    <span className="text-cyan">{skill.value}%</span>
-                  </div>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-200/80">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-cyan via-electric to-teal shadow-cyanglow"
-                      style={{ width: `${skill.value}%` }}
-                    />
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+          <div className="mt-8">
+            <svg viewBox="0 0 800 380" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#00d4e6" />
+                  <stop offset="50%" stopColor="#3b82f6" />
+                  <stop offset="100%" stopColor="#14b8a6" />
+                </linearGradient>
+                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.02" />
+                </linearGradient>
+              </defs>
+
+              {/* Y-axis grid lines + labels */}
+              {[0, 20, 40, 60, 80, 100].map((v) => {
+                const y = 300 - v * 2.7;
+                return (
+                  <g key={v}>
+                    <line x1="50" y1={y} x2="780" y2={y} stroke="#e2e8f0" strokeWidth="1" />
+                    <text x="45" y={y + 4} textAnchor="end" className="text-[11px] fill-slate-400" fontSize="11">{v}</text>
+                  </g>
+                );
+              })}
+
+              {/* Area fill */}
+              <polygon
+                points={`50,300 ${skills.map((s, i) => {
+                  const x = 50 + i * (730 / (skills.length - 1));
+                  const y = 300 - s.value * 2.7;
+                  return `${x},${y}`;
+                }).join(" ")} 780,300`}
+                fill="url(#areaGrad)"
+              />
+
+              {/* Line */}
+              <polyline
+                points={skills.map((s, i) => {
+                  const x = 50 + i * (730 / (skills.length - 1));
+                  const y = 300 - s.value * 2.7;
+                  return `${x},${y}`;
+                }).join(" ")}
+                fill="none"
+                stroke="url(#lineGrad)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+
+              {/* Data points */}
+              {skills.map((s, i) => {
+                const x = 50 + i * (730 / (skills.length - 1));
+                const y = 300 - s.value * 2.7;
+                return (
+                  <g key={s.name}>
+                    <circle cx={x} cy={y} r="5" fill="#1e293b" stroke="#3b82f6" strokeWidth="2.5" />
+                    <text x={x} y={y - 12} textAnchor="middle" className="text-[11px] fill-slate-700 font-semibold" fontSize="11">{s.value}%</text>
+                  </g>
+                );
+              })}
+
+              {/* X-axis labels */}
+              {skills.map((s, i) => {
+                const x = 50 + i * (730 / (skills.length - 1));
+                return (
+                  <text
+                    key={s.name}
+                    x={x}
+                    y="335"
+                    textAnchor="end"
+                    transform={`rotate(-35, ${x}, 335)`}
+                    className="text-[10px] fill-slate-500"
+                    fontSize="10"
+                  >
+                    {s.name}
+                  </text>
+                );
+              })}
+
+              {/* X-axis line */}
+              <line x1="50" y1="300" x2="780" y2="300" stroke="#cbd5e1" strokeWidth="1.5" />
+            </svg>
           </div>
         </div>
       </Reveal>
