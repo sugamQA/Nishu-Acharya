@@ -537,7 +537,7 @@ function CompetencyChart() {
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         {/* Line chart */}
         <div>
-          <svg viewBox="0 0 600 340" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+          <svg viewBox="0 0 600 380" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="lineGrad2" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor="#3b82f6" />
@@ -579,7 +579,7 @@ function CompetencyChart() {
             {skills.map((s, i) => {
               const x = 60 + i * (520 / (skills.length - 1));
               return (
-                <text key={s.name} x={x} y="315" textAnchor="end" transform={`rotate(-40, ${x}, 315)`} className="text-[9px] fill-slate-500" fontSize="9">{s.name}</text>
+                <text key={s.name} x={x} y="335" textAnchor="end" transform={`rotate(-25, ${x}, 335)`} className="text-[9px] fill-slate-500" fontSize="9">{s.name}</text>
               );
             })}
             <line x1="60" y1="280" x2="580" y2="280" stroke="#cbd5e1" strokeWidth="1.5" />
