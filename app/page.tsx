@@ -28,7 +28,6 @@ import { Counter } from "@/components/ui/counter";
 import { MouseLight } from "@/components/ui/mouse-light";
 import { TypingCycle } from "@/components/typing-cycle";
 import { CircularTestimonials } from "@/components/ui/circular-testimonials";
-import { N8nWorkflowBlock } from "@/components/ui/n8n-workflow-block-shadcnui";
 import { ExperiencePopup } from "@/components/experience-popup";
 import {
   bioCards,
@@ -530,136 +529,145 @@ function ProjectsSection() {
       }
       intro="Selected projects spanning neglected tropical disease coordination, hospital public health, health economics, and youth-led emergency preparedness."
     >
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {projects.map((project, i) => {
-          const colorClasses: Record<string, { accent: string; iconBg: string; badge: string; hover: string; glow: string }> = {
-            cyan: { accent: "text-cyan", iconBg: "from-cyan/20 to-electric/15 border-cyan/30", badge: "border-cyan/30 bg-cyan/5 text-cyan", hover: "group-hover:border-cyan/50", glow: "shadow-cyanglow" },
-            electric: { accent: "text-electric", iconBg: "from-electric/20 to-cyan/15 border-electric/30", badge: "border-electric/30 bg-electric/5 text-electric", hover: "group-hover:border-electric/50", glow: "shadow-[0_0_40px_rgba(37,99,235,0.25)]" },
-            teal: { accent: "text-teal", iconBg: "from-teal/20 to-cyan/15 border-teal/30", badge: "border-teal/30 bg-teal/5 text-teal", hover: "group-hover:border-teal/50", glow: "shadow-tealglow" },
-            pink: { accent: "text-pink", iconBg: "from-pink/20 to-electric/15 border-pink/30", badge: "border-pink/30 bg-pink/5 text-pink", hover: "group-hover:border-pink/50", glow: "shadow-[0_0_40px_rgba(236,72,153,0.25)]" }
+          const palette: Record<string, {
+            accent: string; badge: string; tag: string; iconWrap: string;
+            gradient: string; ring: string; shadow: string; dot: string
+          }> = {
+            cyan: {
+              accent: "text-cyan",
+              badge: "border-cyan/25 bg-cyan/10 text-cyan",
+              tag: "bg-cyan/5 text-cyan-700 border-cyan/20 group-hover:border-cyan/40",
+              iconWrap: "from-cyan/25 to-electric/15 border-cyan/30 shadow-cyanglow",
+              gradient: "from-cyan/25 via-cyan/5 to-transparent",
+              ring: "ring-cyan/30",
+              shadow: "shadow-cyanglow",
+              dot: "bg-cyan"
+            },
+            electric: {
+              accent: "text-electric",
+              badge: "border-electric/25 bg-electric/10 text-electric",
+              tag: "bg-electric/5 text-blue-700 border-electric/20 group-hover:border-electric/40",
+              iconWrap: "from-electric/25 to-cyan/15 border-electric/30",
+              gradient: "from-electric/25 via-electric/5 to-transparent",
+              ring: "ring-electric/30",
+              shadow: "shadow-[0_0_40px_rgba(37,99,235,0.25)]",
+              dot: "bg-electric"
+            },
+            teal: {
+              accent: "text-teal",
+              badge: "border-teal/25 bg-teal/10 text-teal",
+              tag: "bg-teal/5 text-teal-700 border-teal/20 group-hover:border-teal/40",
+              iconWrap: "from-teal/25 to-cyan/15 border-teal/30 shadow-tealglow",
+              gradient: "from-teal/25 via-teal/5 to-transparent",
+              ring: "ring-teal/30",
+              shadow: "shadow-tealglow",
+              dot: "bg-teal"
+            },
+            pink: {
+              accent: "text-pink",
+              badge: "border-pink/25 bg-pink/10 text-pink",
+              tag: "bg-pink/5 text-pink-700 border-pink/20 group-hover:border-pink/40",
+              iconWrap: "from-pink/25 to-electric/15 border-pink/30",
+              gradient: "from-pink/25 via-pink/5 to-transparent",
+              ring: "ring-pink/30",
+              shadow: "shadow-[0_0_40px_rgba(236,72,153,0.25)]",
+              dot: "bg-pink"
+            }
           };
-          const c = colorClasses[project.color || "cyan"];
-          // Alternating card heights and layouts for creative grid
-          const layoutVariants = [
-            { imgH: "h-56", titleSize: "text-2xl" },
-            { imgH: "h-44", titleSize: "text-xl" },
-            { imgH: "h-52", titleSize: "text-2xl" },
-            { imgH: "h-40", titleSize: "text-lg" }
-          ];
-          const layout = layoutVariants[i % 4];
+          const p = palette[project.color || "cyan"];
           return (
             <Reveal key={project.title} delay={i * 0.08}>
-              <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white/70 shadow-md backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                {/* Image header */}
-                <div className={`relative ${layout.imgH} overflow-hidden bg-slate-100`}>
+              <article className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${p.shadow}`}>
+                {/* Decorative hover corner glow */}
+                <div className={`pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full bg-gradient-to-br ${p.gradient} opacity-0 blur-3xl transition-all duration-700 group-hover:opacity-70 group-hover:-translate-x-4 group-hover:translate-y-4`} />
+                {/* Image section */}
+                <div className="relative h-52 overflow-hidden bg-slate-100">
                   <img
                     src={project.image}
                     alt={project.title}
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/85 via-white/30 to-transparent" />
-                  {/* Corner category badge */}
+                  {/* Dual gradient overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-b ${p.gradient}`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
+                  {/* Category badge */}
                   <div className="absolute right-3 top-3">
-                    <span className={`inline-flex items-center gap-1 rounded-full border ${c.badge} bg-white/90 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider backdrop-blur-md`}>
-                      <span className={`h-1.5 w-1.5 rounded-full ${c.accent.replace("text-", "bg-")}`} />
+                    <span className={`inline-flex items-center gap-1.5 rounded-full border ${p.badge} bg-white/80 px-3 py-1 text-[10px] font-bold uppercase tracking-widest backdrop-blur-sm`}>
+                      <span className={`h-1.5 w-1.5 rounded-full ${p.dot}`} />
                       {project.category}
                     </span>
                   </div>
-                  {/* Floating icon badge */}
-                  <div className="absolute left-4 bottom-4">
-                    <div className={`relative grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${c.iconBg} border bg-white/95 shadow-lg backdrop-blur-md ${c.glow}`}>
-                      <project.icon className={`h-6 w-6 ${c.accent}`} />
+                  {/* Overlapping icon badge */}
+                  <div className="absolute -bottom-6 left-4">
+                    <div className={`relative grid h-14 w-14 place-items-center rounded-xl bg-gradient-to-br ${p.iconWrap} bg-white shadow-lg backdrop-blur-md`}>
+                      <project.icon className={`h-6 w-6 ${p.accent}`} />
                     </div>
                   </div>
                 </div>
                 {/* Content */}
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className={`${layout.titleSize} font-semibold leading-tight text-slate-900`}>{project.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{project.summary}</p>
-                  {/* Stats with dividers */}
-                  <div className="mt-4 flex flex-wrap gap-1.5 border-t border-slate-200 pt-4">
+                <div className="flex flex-1 flex-col px-5 pb-5 pt-9">
+                  <h3 className="text-xl font-bold leading-tight text-slate-900">{project.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-500">{project.summary}</p>
+                  {/* Impact tags */}
+                  <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
                     {project.impact.map((tag) => (
                       <span
                         key={tag}
-                        className={`inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-2.5 py-0.5 text-[11px] font-medium text-slate-700 transition ${c.hover}`}
+                        className={`inline-flex items-center gap-1.5 rounded-lg border ${p.tag} px-2.5 py-1 text-[11px] font-semibold transition-all`}
                       >
-                        <CheckCircle2 className={`h-3 w-3 ${c.accent}`} />
+                        <CheckCircle2 className={`h-3 w-3 ${p.accent}`} />
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-                {/* Hover accent strip */}
-                <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan via-electric to-teal opacity-60 transition-opacity group-hover:opacity-100" />
+                {/* Animated bottom accent bar */}
+                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-cyan via-electric to-teal opacity-60 transition-all duration-500 group-hover:h-1 group-hover:opacity-100" />
               </article>
             </Reveal>
           );
         })}
       </div>
 
-      {/* Certifications */}
+      {/* Certifications as premium icon cards */}
       <Reveal>
-        <div className="mt-16">
-          <h3 className="mb-6 flex items-center gap-3 text-2xl font-semibold text-slate-900">
-            <BadgeCheck className="h-5 w-5 text-cyan" />
-            Professional Certifications
-          </h3>
-
-          {/* Interactive workflow block */}
-          <div className="mb-8 -mx-4 sm:-mx-6 lg:-mx-8">
-            <N8nWorkflowBlock />
+        <div className="mt-14">
+          <div className="mb-6 flex items-center gap-3">
+            <span className="eyebrow">
+              <Award className="h-3.5 w-3.5 text-cyan" />
+              Certifications
+            </span>
           </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((cert, index) => (
-              <Reveal key={cert.title} delay={index * 0.04}>
-                <a
-                  href={cert.link}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-cyan/50 hover:shadow-xl"
-                >
-                  {/* Top accent bar */}
-                  <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan via-electric to-teal opacity-80 transition-opacity group-hover:opacity-100" />
-
-                  {/* Top row: badge + year */}
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3">
-                      <div className="relative shrink-0">
-                        <div className="absolute inset-0 rounded-xl bg-cyan/20 blur-md" />
-                        <div className="relative grid h-12 w-12 place-items-center rounded-xl border border-cyan/30 bg-gradient-to-br from-cyan/15 to-electric/10">
-                          <Award className="h-5 w-5 text-cyan" />
-                        </div>
-                      </div>
-                      <div className="min-w-0">
-                        <h4 className="text-base font-semibold leading-snug text-slate-900">
-                          {cert.title}
-                        </h4>
-                        <p className="mt-1 text-xs font-medium text-slate-500">
-                          {cert.issuer}
-                        </p>
-                      </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {certifications.map((cert, i) => {
+              const certColors = [
+                { border: "border-cyan/30", bg: "from-cyan/15 to-electric/10", iconBg: "bg-cyan/10", accent: "text-cyan", shadow: "shadow-cyanglow/20" },
+                { border: "border-electric/30", bg: "from-electric/15 to-cyan/10", iconBg: "bg-electric/10", accent: "text-electric", shadow: "shadow-blue-500/20" },
+                { border: "border-teal/30", bg: "from-teal/15 to-cyan/10", iconBg: "bg-teal/10", accent: "text-teal", shadow: "shadow-tealglow/20" },
+              ];
+              const cc = certColors[i % certColors.length];
+              return (
+                <Reveal key={cert.title} delay={i * 0.04}>
+                  <a
+                    href={cert.link}
+                    className={`group relative flex items-center gap-4 overflow-hidden rounded-xl border ${cc.border} bg-white/80 p-4 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${cc.shadow}`}
+                  >
+                    <div className={`relative grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${cc.bg} border ${cc.border}`}>
+                      <Award className={`h-5 w-5 ${cc.accent}`} />
                     </div>
-                    <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-cyan/30 bg-cyan/5 px-2.5 py-1 text-[11px] font-bold text-cyan">
-                      {cert.year}
-                    </span>
-                  </div>
-
-                  {/* Credential footer */}
-                  <div className="mt-auto flex items-center justify-between border-t border-slate-200 pt-4">
-                    <div className="flex items-center gap-1.5">
-                      <BadgeCheck className="h-3.5 w-3.5 text-emerald-500" />
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">
-                        Verified
-                      </span>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-sm font-semibold leading-snug text-slate-900">{cert.title}</h4>
+                      <p className="mt-0.5 text-xs font-medium text-slate-500">{cert.issuer}</p>
                     </div>
-                    <span className="rounded-md bg-slate-100 px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-slate-600 transition group-hover:bg-cyan/10 group-hover:text-cyan">
-                      {cert.credential}
-                    </span>
-                  </div>
-                </a>
-              </Reveal>
-            ))}
+                    <span className={`shrink-0 rounded-md border ${cc.border} ${cc.iconBg} px-2 py-1 text-[10px] font-bold ${cc.accent}`}>{cert.year}</span>
+                  </a>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </Reveal>
@@ -668,6 +676,13 @@ function ProjectsSection() {
 }
 
 /* ---------- PROGRAMS ---------- */
+const programImages = [
+  "/gallery/field-visits.jpg",
+  "/gallery/public-health.jpg",
+  "/gallery/community.jpg",
+  "/gallery/workshops.jpg"
+];
+
 function ProgramsSection() {
   return (
     <Section
@@ -682,38 +697,40 @@ function ProgramsSection() {
       }
       intro="Field-driven programs and campaigns designed to translate public health priorities into measurable community impact."
     >
-      <div className="relative">
-        {/* Vertical timeline line */}
-        <div className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-cyan/50 via-teal/30 to-transparent md:block" />
-        <div className="space-y-6">
-          {programs.map((program, i) => (
-            <Reveal key={program.title} delay={i * 0.08}>
-              <div className="relative md:pl-14">
-                <div className="absolute left-0 top-6 hidden h-4 w-4 rounded-full bg-gradient-to-br from-cyan to-electric shadow-cyanglow md:block">
-                  <span className="absolute inset-0 rounded-full animate-ping bg-cyan/40" />
-                </div>
-                <article className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-card-projects shadow-sm p-6 transition holographic">
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3">
-                        <span className="rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan">
-                          {program.year}
-                        </span>
-                        <span className="text-xs text-slate-400">Program</span>
-                      </div>
-                      <h3 className="mt-3 text-xl font-semibold text-slate-900">{program.title}</h3>
-                      <p className="mt-2 text-sm leading-7 text-slate-500">{program.description}</p>
-                    </div>
-                    <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-cyan/20 bg-cyan/5 px-4 py-3">
-                      <TrendingUp className="h-4 w-4 text-cyan" />
-                      <span className="text-sm font-semibold text-cyan">{program.metric}</span>
-                    </div>
-                  </div>
-                </article>
+      <div className="space-y-8">
+        {programs.map((program, i) => (
+          <Reveal key={program.title} delay={i * 0.08}>
+            <div className="grid gap-6 md:grid-cols-2 md:items-center">
+              {/* Left: Image */}
+              <div className={`relative overflow-hidden rounded-2xl ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan/20 to-transparent z-10" />
+                <img
+                  src={programImages[i]}
+                  alt={program.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-64 w-full object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105 md:h-72"
+                />
+                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-cyan/20" />
               </div>
-            </Reveal>
-          ))}
-        </div>
+              {/* Right: Content */}
+              <div className={`space-y-4 ${i % 2 === 1 ? "md:order-1" : ""}`}>
+                <div className="flex items-center gap-3">
+                  <span className="rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan">
+                    {program.year}
+                  </span>
+                  <span className="text-xs text-slate-400">Program</span>
+                </div>
+                <h3 className="text-xl font-semibold text-slate-900">{program.title}</h3>
+                <p className="text-sm leading-7 text-slate-500">{program.description}</p>
+                <div className="inline-flex items-center gap-2 rounded-2xl border border-cyan/20 bg-cyan/5 px-4 py-3">
+                  <TrendingUp className="h-4 w-4 text-cyan" />
+                  <span className="text-sm font-semibold text-cyan">{program.metric}</span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        ))}
       </div>
 
       {/* Training */}
