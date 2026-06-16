@@ -324,11 +324,21 @@ function AboutSection() {
                   <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-cyan/20 to-electric/20 border border-cyan/30 text-cyan">
                     <span className="text-base">{card.icon}</span>
                   </span>
-                  <span className="text-xs text-slate-300">0{i + 1}</span>
+                  <span className="text-xs font-mono font-semibold text-slate-300">{card.num}</span>
                 </div>
                 <h4 className="mt-4 text-lg font-semibold text-slate-900">{card.title}</h4>
                 <p className="mt-2 text-sm leading-6 text-slate-500">{card.body}</p>
-                <div className="mt-4 h-px w-full bg-gradient-to-r from-cyan/40 via-white/5 to-transparent" />
+                {card.cta ? (
+                  <a
+                    href="#contact"
+                    className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan to-electric px-4 py-2.5 text-sm font-bold text-ink shadow-lg shadow-cyan/30 transition hover:scale-105 hover:shadow-xl hover:shadow-cyan/50"
+                  >
+                    {card.cta}
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                ) : (
+                  <div className="mt-4 h-px w-full bg-gradient-to-r from-cyan/40 via-white/5 to-transparent" />
+                )}
               </div>
             </Reveal>
           ))}

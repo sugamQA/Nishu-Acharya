@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export function AnimatedCursor() {
+  const [mounted, setMounted] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -11,6 +12,7 @@ export function AnimatedCursor() {
   const springY = useSpring(y, { stiffness: 280, damping: 30 });
 
   useEffect(() => {
+    setMounted(true);
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     setEnabled(canHover);
     if (!canHover) return;
@@ -26,7 +28,7 @@ export function AnimatedCursor() {
     return () => window.removeEventListener("pointermove", move);
   }, [x, y]);
 
-  if (!enabled) return null;
+  if (!mounted || !enabled) return null;
 
   return (
     <>

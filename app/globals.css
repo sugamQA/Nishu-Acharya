@@ -259,7 +259,7 @@ img {
   transform: translateY(-6px);
   box-shadow:
     0 30px 80px rgba(2, 8, 23, 0.35),
-    0 0 60px rgba(0, 212, 230, 0.25);
+    0 0 60px rgba(59, 130, 246, 0.30);
 }
 
 /* Mouse-follow lighting layer */
@@ -319,8 +319,8 @@ img {
   border-color: rgba(0, 212, 230, 0.30);
 }
 .bg-card-about:hover {
-  background: linear-gradient(135deg, #c8e6ff 0%, #daefff 100%);
-  border-color: rgba(0, 212, 230, 0.50);
+  background: linear-gradient(135deg, #b8daff 0%, #cce4ff 100%);
+  border-color: rgba(59, 130, 246, 0.60);
 }
 
 .bg-card-expertise {

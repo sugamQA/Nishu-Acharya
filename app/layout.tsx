@@ -100,7 +100,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Skip to content
         </a>
         <ThemeProvider>
-          <main id="main">{children}</main>
+          <div id="main">{children}</div>
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

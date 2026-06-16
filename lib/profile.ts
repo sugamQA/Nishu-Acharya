@@ -70,25 +70,30 @@ export const bioCards = [
     title: "Journey",
     body:
       "A public health path shaped by field experience, research, monitoring and evaluation, teaching, and community engagement.",
-    icon: "✦"
+    icon: "✦",
+    num: "01"
   },
   {
     title: "Career",
     body:
       "Focused on health program implementation, evidence generation, strategic planning, and practical support to health institutions.",
-    icon: "▲"
+    icon: "▲",
+    num: "02"
   },
   {
     title: "Leadership",
     body:
       "A collaborative approach to project coordination, stakeholder communication, health worker capacity building, and data-informed decisions.",
-    icon: "●"
+    icon: "●",
+    num: "03"
   },
   {
     title: "Mission",
     body:
       "To advance health equity and community well-being through evidence-based interventions and accountable public health practice.",
-    icon: "◆"
+    icon: "◆",
+    num: "04",
+    cta: "Book a consultation"
   }
 ];
 
