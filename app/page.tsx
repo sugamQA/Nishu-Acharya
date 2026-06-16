@@ -817,15 +817,15 @@ function ProgramsSection() {
       <Reveal>
         <div className="mt-16">
           <h3 className="mb-6 flex items-center gap-3 text-2xl font-semibold text-slate-900">
-            <GraduationCap className="h-5 w-5 text-cyan" />
+            <GraduationCap className="h-5 w-5 text-blue-500" />
             Specialized Training
           </h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {trainings.map((training, index) => (
               <Reveal key={training.title} delay={index * 0.04}>
-                <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-card-programs shadow-sm p-5 transition">
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-card-programs shadow-sm p-5 transition hover:-translate-y-1 hover:shadow-md hover:shadow-blue-500/20">
                   <div className="flex items-start gap-3">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-teal/20 to-cyan/20 border border-teal/30 text-teal">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-blue-500/20 to-sky-400/20 border border-blue-400/30 text-blue-600">
                       <BookOpen className="h-4 w-4" />
                     </span>
                     <div className="min-w-0">
@@ -834,7 +834,7 @@ function ProgramsSection() {
                     </div>
                   </div>
                   <div className="mt-auto flex items-center justify-between pt-4">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-teal/10 border border-teal/30 px-2.5 py-0.5 text-[11px] font-semibold text-teal">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 border border-blue-300 px-2.5 py-0.5 text-[11px] font-semibold text-blue-700">
                       {training.year}
                     </span>
                     <span className="text-[11px] text-slate-400">{training.type}</span>

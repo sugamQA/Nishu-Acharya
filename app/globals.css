@@ -342,12 +342,12 @@ img {
 }
 
 .bg-card-programs {
-  background: linear-gradient(135deg, #cef2ee 0%, #dcf6f3 100%);
-  border-color: rgba(0, 184, 158, 0.30);
+  background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+  border-color: rgba(59, 130, 246, 0.25);
 }
 .bg-card-programs:hover {
-  background: linear-gradient(135deg, #b6ece6 0%, #c8f0ec 100%);
-  border-color: rgba(0, 184, 158, 0.50);
+  background: linear-gradient(135deg, #bfdbfe 0%, #dbeafe 100%);
+  border-color: rgba(59, 130, 246, 0.50);
 }
 
 .bg-card-cases {
