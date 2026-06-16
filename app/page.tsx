@@ -320,7 +320,13 @@ function AboutSection() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {bioCards.map((card, i) => (
             <Reveal key={card.title} delay={i * 0.08}>
-              <div className="depth-card bg-card-about group h-full p-5">
+              <div
+                className={`depth-card group h-full p-5 ${
+                  i === 1
+                    ? "border border-white/20 shadow-lg shadow-cyan/20 bg-gradient-to-br from-cyan to-electric"
+                    : "bg-card-about"
+                }`}
+              >
                 <div className="flex items-center justify-between">
                   <span className="grid h-10 w-10 place-items-center rounded-xl bg-white/20 border border-white/30 text-white">
                     <span className="text-base">{card.icon}</span>
@@ -332,7 +338,9 @@ function AboutSection() {
                 {card.cta ? (
                   <a
                     href="#contact"
-                    className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-blue-600 shadow-lg transition hover:scale-105 hover:shadow-xl"
+                    className={`mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold shadow-lg transition hover:scale-105 hover:shadow-xl ${
+                      i === 1 ? "text-cyan" : "text-blue-600"
+                    }`}
                   >
                     {card.cta}
                     <ArrowRight className="h-4 w-4" />
