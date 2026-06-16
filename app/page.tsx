@@ -607,102 +607,53 @@ function ProjectsSection() {
     >
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {projects.map((project, i) => {
-          const palette: Record<string, {
-            accent: string; badge: string; tag: string; iconWrap: string;
-            gradient: string; ring: string; shadow: string; dot: string
-          }> = {
-            cyan: {
-              accent: "text-cyan",
-              badge: "border-cyan/25 bg-cyan/10 text-cyan",
-              tag: "bg-cyan/5 text-cyan-700 border-cyan/20 group-hover:border-cyan/40",
-              iconWrap: "from-cyan/25 to-electric/15 border-cyan/30 shadow-cyanglow",
-              gradient: "from-cyan/25 via-cyan/5 to-transparent",
-              ring: "ring-cyan/30",
-              shadow: "shadow-cyanglow",
-              dot: "bg-cyan"
-            },
-            electric: {
-              accent: "text-electric",
-              badge: "border-electric/25 bg-electric/10 text-electric",
-              tag: "bg-electric/5 text-blue-700 border-electric/20 group-hover:border-electric/40",
-              iconWrap: "from-electric/25 to-cyan/15 border-electric/30",
-              gradient: "from-electric/25 via-electric/5 to-transparent",
-              ring: "ring-electric/30",
-              shadow: "shadow-[0_0_40px_rgba(37,99,235,0.25)]",
-              dot: "bg-electric"
-            },
-            teal: {
-              accent: "text-teal",
-              badge: "border-teal/25 bg-teal/10 text-teal",
-              tag: "bg-teal/5 text-teal-700 border-teal/20 group-hover:border-teal/40",
-              iconWrap: "from-teal/25 to-cyan/15 border-teal/30 shadow-tealglow",
-              gradient: "from-teal/25 via-teal/5 to-transparent",
-              ring: "ring-teal/30",
-              shadow: "shadow-tealglow",
-              dot: "bg-teal"
-            },
-            pink: {
-              accent: "text-pink",
-              badge: "border-pink/25 bg-pink/10 text-pink",
-              tag: "bg-pink/5 text-pink-700 border-pink/20 group-hover:border-pink/40",
-              iconWrap: "from-pink/25 to-electric/15 border-pink/30",
-              gradient: "from-pink/25 via-pink/5 to-transparent",
-              ring: "ring-pink/30",
-              shadow: "shadow-[0_0_40px_rgba(236,72,153,0.25)]",
-              dot: "bg-pink"
-            }
-          };
-          const p = palette[project.color || "cyan"];
           return (
             <Reveal key={project.title} delay={i * 0.08}>
-              <article className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${p.shadow}`}>
-                {/* Decorative hover corner glow */}
-                <div className={`pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full bg-gradient-to-br ${p.gradient} opacity-0 blur-3xl transition-all duration-700 group-hover:opacity-70 group-hover:-translate-x-4 group-hover:translate-y-4`} />
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/25">
+                {/* Blue hover overlay */}
+                <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl border-2 border-blue-400/0 opacity-0 transition-all duration-500 group-hover:border-blue-400/60 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-blue-600/90 via-blue-600/40 to-blue-600/10 opacity-0 transition-all duration-500 group-hover:opacity-100" />
+
                 {/* Image section */}
-                <div className="relative h-52 overflow-hidden bg-slate-100">
+                <div className="relative h-48 shrink-0 overflow-hidden bg-slate-100">
                   <img
                     src={project.image}
                     alt={project.title}
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110"
+                    className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-40"
                   />
-                  {/* Dual gradient overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-b ${p.gradient}`} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
                   {/* Category badge */}
-                  <div className="absolute right-3 top-3">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full border ${p.badge} bg-white/80 px-3 py-1 text-[10px] font-bold uppercase tracking-widest backdrop-blur-sm`}>
-                      <span className={`h-1.5 w-1.5 rounded-full ${p.dot}`} />
+                  <div className="absolute right-3 top-3 z-30">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/60 bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-700 backdrop-blur-sm shadow-sm transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-400">
                       {project.category}
                     </span>
                   </div>
                   {/* Overlapping icon badge */}
-                  <div className="absolute -bottom-6 left-4">
-                    <div className={`relative grid h-14 w-14 place-items-center rounded-xl bg-gradient-to-br ${p.iconWrap} bg-white shadow-lg backdrop-blur-md`}>
-                      <project.icon className={`h-6 w-6 ${p.accent}`} />
+                  <div className="absolute -bottom-6 left-4 z-30">
+                    <div className="relative grid h-12 w-12 place-items-center rounded-xl bg-white shadow-lg border border-blue-200 transition-all duration-500 group-hover:bg-blue-600 group-hover:border-blue-400">
+                      <project.icon className="h-5 w-5 text-blue-600 transition-all duration-500 group-hover:text-white" />
                     </div>
                   </div>
                 </div>
+
                 {/* Content */}
-                <div className="flex flex-1 flex-col px-5 pb-5 pt-9">
-                  <h3 className="text-xl font-bold leading-tight text-slate-900">{project.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-500">{project.summary}</p>
+                <div className="relative z-30 flex flex-1 flex-col px-5 pb-5 pt-9">
+                  <h3 className="text-lg font-bold leading-tight text-slate-900 transition-all duration-500 group-hover:text-white">{project.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-500 line-clamp-2 transition-all duration-500 group-hover:text-white/90">{project.summary}</p>
                   {/* Impact tags */}
-                  <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
+                  <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4 transition-all duration-500 group-hover:border-white/20">
                     {project.impact.map((tag) => (
                       <span
                         key={tag}
-                        className={`inline-flex items-center gap-1.5 rounded-lg border ${p.tag} px-2.5 py-1 text-[11px] font-semibold transition-all`}
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200/60 bg-blue-50/80 px-2.5 py-1 text-[11px] font-semibold text-blue-700 transition-all duration-500 group-hover:bg-white/20 group-hover:text-white group-hover:border-white/30"
                       >
-                        <CheckCircle2 className={`h-3 w-3 ${p.accent}`} />
+                        <CheckCircle2 className="h-3 w-3 text-blue-500 transition-all duration-500 group-hover:text-white" />
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-                {/* Animated bottom accent bar */}
-                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-cyan via-electric to-teal opacity-60 transition-all duration-500 group-hover:h-1 group-hover:opacity-100" />
               </article>
             </Reveal>
           );
