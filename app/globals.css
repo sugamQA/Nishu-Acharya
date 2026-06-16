@@ -313,14 +313,14 @@ img {
   display: none;
 }
 
-/* Per-section card backgrounds (light blue tints) */
+/* Per-section card backgrounds (blue tones) */
 .bg-card-about {
-  background: linear-gradient(135deg, #dceeff 0%, #e8f4ff 100%);
-  border-color: rgba(0, 212, 230, 0.30);
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  border-color: rgba(59, 130, 246, 0.50);
 }
 .bg-card-about:hover {
-  background: linear-gradient(135deg, #b8daff 0%, #cce4ff 100%);
-  border-color: rgba(59, 130, 246, 0.60);
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  border-color: rgba(59, 130, 246, 0.80);
 }
 
 .bg-card-expertise {

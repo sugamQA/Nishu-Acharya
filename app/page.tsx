@@ -322,23 +322,23 @@ function AboutSection() {
             <Reveal key={card.title} delay={i * 0.08}>
               <div className="depth-card bg-card-about group h-full p-5">
                 <div className="flex items-center justify-between">
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-cyan/20 to-electric/20 border border-cyan/30 text-cyan">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-white/20 border border-white/30 text-white">
                     <span className="text-base">{card.icon}</span>
                   </span>
-                  <span className="text-xs font-mono font-semibold text-slate-300">{card.num}</span>
+                  <span className="text-xs font-mono font-semibold text-white/60">{card.num}</span>
                 </div>
-                <h4 className="mt-4 text-lg font-semibold text-slate-900">{card.title}</h4>
-                <p className="mt-2 text-sm leading-6 text-slate-500">{card.body}</p>
+                <h4 className="mt-4 text-lg font-semibold text-white">{card.title}</h4>
+                <p className="mt-2 text-sm leading-6 text-white/80">{card.body}</p>
                 {card.cta ? (
                   <a
                     href="#contact"
-                    className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan to-electric px-4 py-2.5 text-sm font-bold text-ink shadow-lg shadow-cyan/30 transition hover:scale-105 hover:shadow-xl hover:shadow-cyan/50"
+                    className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-blue-600 shadow-lg transition hover:scale-105 hover:shadow-xl"
                   >
                     {card.cta}
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 ) : (
-                  <div className="mt-4 h-px w-full bg-gradient-to-r from-cyan/40 via-white/5 to-transparent" />
+                  <div className="mt-4 h-px w-full bg-gradient-to-r from-white/40 via-white/10 to-transparent" />
                 )}
               </div>
             </Reveal>
