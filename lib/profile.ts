@@ -1,9 +1,11 @@
 import {
   BriefcaseBusiness,
   CalendarDays,
+  Facebook,
   Github,
   GraduationCap,
   HandHeart,
+  Instagram,
   Linkedin,
   Mail,
   MapPin,
@@ -30,6 +32,8 @@ export const profile = {
   location: "Nepal",
   email: "info@nishuacharya.com.np",
   linkedin: "https://www.linkedin.com/in/nishuacharya/",
+  facebook: "https://facebook.com/nishuacharya",
+  instagram: "https://instagram.com/nishuacharya",
   github: "https://github.com/",
   twitter: "https://twitter.com/",
   calendar: "https://cal.com/",
@@ -47,6 +51,8 @@ export const profile = {
 
 export const socials = [
   { label: "LinkedIn", href: profile.linkedin, icon: Linkedin },
+  { label: "Facebook", href: profile.facebook, icon: Facebook },
+  { label: "Instagram", href: profile.instagram, icon: Instagram },
   { label: "Email", href: `mailto:${profile.email}`, icon: Mail },
   { label: "GitHub", href: profile.github, icon: Github },
   { label: "Twitter", href: profile.twitter, icon: Twitter }
@@ -56,7 +62,7 @@ export const stats = [
   { value: "120+", label: "Health Programs Designed", icon: BriefcaseBusiness },
   { value: "18K+", label: "Community Members Reached", icon: Users },
   { value: "45+", label: "Research Projects Led", icon: Microscope },
-  { value: "9", label: "Provinces of Nepal Covered", icon: Globe2 }
+  { value: "7", label: "Provinces of Nepal Covered", icon: Globe2 }
 ];
 
 export const bioCards = [
@@ -207,31 +213,35 @@ export const projects = [
 export const programs = [
   {
     year: "2024",
-    title: "NTD Elimination Acceleration",
+    title: "NTD Mapping & Coordination",
+    category: "NTD",
     description:
-      "Provincial coordination program strengthening surveillance, mapping, and frontline capacity for neglected tropical disease elimination.",
-    metric: "12 districts"
+      "Coordinated multi-province mapping and co-endemicity analysis for NTD intervention planning across Nepal.",
+    bullets: ["3 provinces", "12 districts", "120+ health workers trained"]
   },
   {
     year: "2023",
-    title: "Hospital Public Health Reform",
+    title: "Hospital Strategic Planning",
+    category: "Health Systems",
     description:
-      "Strategic planning and program monitoring for hospital-based public health functions and research priorities.",
-    metric: "365-day OPD"
+      "Provided technical support for hospital strategic planning, research proposals, and 365-day outpatient care design.",
+    bullets: ["2 hospitals", "5 research proposals", "Priority programs aligned"]
   },
   {
     year: "2022",
-    title: "Community Health Education",
+    title: "Health Insurance Research",
+    category: "Health Economics",
     description:
-      "Community-based awareness campaigns on mental health, child protection, and COVID-19 prevention.",
-    metric: "50+ sessions"
+      "Led research proposal development on community health insurance and outpatient service utilization patterns.",
+    bullets: ["1,200+ respondents", "Provincial insights", "Policy brief"]
   },
   {
     year: "2021",
-    title: "M&E Workforce Development",
+    title: "Youth Emergency Preparedness",
+    category: "Community Health",
     description:
-      "Built monitoring & evaluation capacity for partner NGOs and government health programs.",
-    metric: "200+ trained"
+      "Youth-led emergency response and disaster preparedness training.",
+    bullets: ["50+ youth trained", "Emergency response plans", "School preparedness"]
   }
 ];
 

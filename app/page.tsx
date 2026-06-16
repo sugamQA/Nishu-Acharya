@@ -22,6 +22,7 @@ import {
 import { AnimatedCursor } from "@/components/animated-cursor";
 import { LoadingScreen } from "@/components/loading-screen";
 import { Nav } from "@/components/nav";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
 import { Counter } from "@/components/ui/counter";
@@ -57,6 +58,7 @@ export default function Home() {
       <AnimatedCursor />
       <MouseLight />
       <Nav />
+      <ScrollToTop />
 
       <Hero />
       <AboutSection />
@@ -700,10 +702,10 @@ function ProgramsSection() {
       <div className="space-y-8">
         {programs.map((program, i) => (
           <Reveal key={program.title} delay={i * 0.08}>
-            <div className="grid gap-6 md:grid-cols-2 md:items-center">
+            <div className="group grid gap-6 md:grid-cols-2 md:items-center">
               {/* Left: Image */}
               <div className={`relative overflow-hidden rounded-2xl ${i % 2 === 1 ? "md:order-2" : ""}`}>
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan/20 to-transparent z-10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan/5 to-transparent z-10" />
                 <img
                   src={programImages[i]}
                   alt={program.title}
@@ -714,18 +716,29 @@ function ProgramsSection() {
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-cyan/20" />
               </div>
               {/* Right: Content */}
-              <div className={`space-y-4 ${i % 2 === 1 ? "md:order-1" : ""}`}>
-                <div className="flex items-center gap-3">
+              <div className={`space-y-3 ${i % 2 === 1 ? "md:order-1" : ""}`}>
+                <div className="flex items-center gap-2">
                   <span className="rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan">
                     {program.year}
                   </span>
-                  <span className="text-xs text-slate-400">Program</span>
+                  <span className="rounded-full border border-teal/20 bg-teal/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal">
+                    {program.category}
+                  </span>
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900">{program.title}</h3>
-                <p className="text-sm leading-7 text-slate-500">{program.description}</p>
-                <div className="inline-flex items-center gap-2 rounded-2xl border border-cyan/20 bg-cyan/5 px-4 py-3">
-                  <TrendingUp className="h-4 w-4 text-cyan" />
-                  <span className="text-sm font-semibold text-cyan">{program.metric}</span>
+                <p className="text-sm leading-7 text-slate-500 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
+                  {program.description}
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {program.bullets.map((bullet) => (
+                    <span
+                      key={bullet}
+                      className="inline-flex items-center gap-1.5 rounded-2xl border border-cyan/20 bg-cyan/5 px-3.5 py-2 text-xs font-semibold text-cyan transition-all duration-300 opacity-80 group-hover:opacity-100"
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
+                      {bullet}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
