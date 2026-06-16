@@ -588,7 +588,28 @@ function CompetencyChart() {
 
         {/* Pie chart */}
         <div className="flex flex-col items-center">
-          <svg viewBox="0 0 400 400" className="w-full max-w-[320px] h-auto">
+          <div className="w-full max-w-sm space-y-1">
+            {slices.map((slice) => {
+              const isActive = hovered === slice.name;
+              return (
+                <div
+                  key={slice.name}
+                  className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-all duration-200 cursor-pointer ${
+                    isActive ? "bg-blue-100 ring-1 ring-blue-400" : ""
+                  }`}
+                  onMouseEnter={() => setHovered(slice.name)}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block h-3 w-3 rounded-sm shrink-0" style={{ backgroundColor: slice.color }} />
+                    <span className={`text-slate-700 ${isActive ? "font-semibold text-blue-800" : ""}`}>{slice.name}</span>
+                  </div>
+                  <span className={`text-xs ${isActive ? "font-bold text-blue-700" : "text-slate-400"}`}>{slice.pct}%</span>
+                </div>
+              );
+            })}
+          </div>
+          <svg viewBox="0 0 400 400" className="w-full max-w-[320px] h-auto mt-4">
             {slices.map((slice) => (
               <g key={slice.name}>
                 <path
@@ -604,27 +625,6 @@ function CompetencyChart() {
               </g>
             ))}
           </svg>
-          <div className="mt-4 w-full max-w-sm">
-            {slices.map((slice) => {
-              const isActive = hovered === slice.name;
-              return (
-                <div
-                  key={slice.name}
-                  className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-all duration-200 cursor-pointer ${
-                    isActive ? "bg-blue-50 ring-1 ring-blue-200" : ""
-                  }`}
-                  onMouseEnter={() => setHovered(slice.name)}
-                  onMouseLeave={() => setHovered(null)}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="inline-block h-3 w-3 rounded-sm shrink-0" style={{ backgroundColor: slice.color }} />
-                    <span className={`text-slate-700 ${isActive ? "font-semibold text-blue-700" : ""}`}>{slice.name}</span>
-                  </div>
-                  <span className={`text-xs ${isActive ? "font-bold text-blue-600" : "text-slate-400"}`}>{slice.pct}%</span>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </div>
     </div>
