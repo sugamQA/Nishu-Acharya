@@ -51,6 +51,8 @@ import {
 } from "@/lib/profile";
 
 export default function Home() {
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-ink text-slate-900">
       <LoadingScreen />
@@ -493,62 +495,139 @@ function ExpertiseSection() {
 
       {/* Skills bars */}
       <Reveal>
-        <div className="mt-14 glass-card rounded-3xl p-8 holographic">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h3 className="text-2xl font-semibold text-slate-900">Core Competencies</h3>
-              <p className="mt-1 text-sm text-slate-500">Proficiency built across research, practice, and teaching.</p>
-            </div>
-            <span className="text-xs uppercase tracking-[0.2em] text-cyan">Self-assessed proficiency</span>
-          </div>
-          <div className="mt-8 flex flex-col items-center">
-            {/* Pie chart */}
-            <div className="w-full max-w-md">
-              <svg viewBox="0 0 400 400" className="w-full max-w-[340px] h-auto">
-                {(() => {
-                  const total = skills.reduce((sum, s) => sum + s.value, 0);
-                  const colors = ["#3b82f6","#06b6d4","#14b8a6","#6366f1","#8b5cf6","#ec4899","#f43f5e","#f97316","#eab308","#22c55e"];
-                  let startAngle = -90;
-                  const slices = skills.map((s, i) => {
-                    const angle = (s.value / total) * 360;
-                    const endAngle = startAngle + angle;
-                    const sr = (startAngle * Math.PI) / 180;
-                    const er = (endAngle * Math.PI) / 180;
-                    const cx = 200, cy = 200, r = 160;
-                    const x1 = cx + r * Math.cos(sr);
-                    const y1 = cy + r * Math.sin(sr);
-                    const x2 = cx + r * Math.cos(er);
-                    const y2 = cy + r * Math.sin(er);
-                    const large = angle > 180 ? 1 : 0;
-                    const path = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`;
-                    const slice = { path, color: colors[i % colors.length], name: s.name, value: s.value, pct: Math.round((s.value / total) * 100) };
-                    startAngle = endAngle;
-                    return slice;
-                  });
-                  return slices.map((slice) => (
-                    <g key={slice.name}>
-                      <path d={slice.path} fill={slice.color} opacity="0.85" stroke="#fff" strokeWidth="2" />
-                    </g>
-                  ));
-                })()}
-              </svg>
-              {/* Legend */}
-              <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1.5">
-                {skills.map((s, i) => {
-                  const colors = ["#3b82f6","#06b6d4","#14b8a6","#6366f1","#8b5cf6","#ec4899","#f43f5e","#f97316","#eab308","#22c55e"];
-                  return (
-                    <div key={s.name} className="flex items-center gap-2 text-xs">
-                      <span className="inline-block h-2.5 w-2.5 rounded-sm shrink-0" style={{ backgroundColor: colors[i % colors.length] }} />
-                      <span className="text-slate-600 truncate">{s.name}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+        <CompetencyChart />
       </Reveal>
     </Section>
+  );
+}
+
+/* ---------- COMPETENCY CHART ---------- */
+function CompetencyChart() {
+  const [hovered, setHovered] = useState<string | null>(null);
+  const colors = ["#3b82f6","#06b6d4","#14b8a6","#6366f1","#8b5cf6","#ec4899","#f43f5e","#f97316","#eab308","#22c55e"];
+  const total = skills.reduce((sum, s) => sum + s.value, 0);
+
+  let startAngle = -90;
+  const slices = skills.map((s, i) => {
+    const angle = (s.value / total) * 360;
+    const endAngle = startAngle + angle;
+    const sr = (startAngle * Math.PI) / 180;
+    const er = (endAngle * Math.PI) / 180;
+    const cx = 200, cy = 200, r = 160;
+    const x1 = cx + r * Math.cos(sr);
+    const y1 = cy + r * Math.sin(sr);
+    const x2 = cx + r * Math.cos(er);
+    const y2 = cy + r * Math.sin(er);
+    const large = angle > 180 ? 1 : 0;
+    const path = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`;
+    const slice = { path, color: colors[i % colors.length], name: s.name, value: s.value, pct: Math.round((s.value / total) * 100) };
+    startAngle = endAngle;
+    return slice;
+  });
+
+  return (
+    <div className="mt-14 glass-card rounded-3xl p-8 holographic">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h3 className="text-2xl font-semibold text-slate-900">Core Competencies</h3>
+          <p className="mt-1 text-sm text-slate-500">Proficiency built across research, practice, and teaching.</p>
+        </div>
+        <span className="text-xs uppercase tracking-[0.2em] text-cyan">Self-assessed proficiency</span>
+      </div>
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+        {/* Line chart */}
+        <div>
+          <svg viewBox="0 0 600 340" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="lineGrad2" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#3b82f6" />
+                <stop offset="100%" stopColor="#06b6d4" />
+              </linearGradient>
+              <linearGradient id="areaGrad2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.02" />
+              </linearGradient>
+            </defs>
+            {[0,25,50,75,100].map((v) => {
+              const y = 280 - v * 2.6;
+              return (
+                <g key={v}>
+                  <line x1="60" y1={y} x2="580" y2={y} stroke="#e2e8f0" strokeWidth="1" />
+                  <text x="55" y={y + 4} textAnchor="end" className="text-[10px] fill-slate-400" fontSize="10">{v}%</text>
+                </g>
+              );
+            })}
+            <polyline
+              points={skills.map((s, i) => {
+                const x = 60 + i * (520 / (skills.length - 1));
+                const y = 280 - s.value * 2.6;
+                return `${x},${y}`;
+              }).join(" ")}
+              fill="none" stroke="url(#lineGrad2)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            />
+            {skills.map((s, i) => {
+              const x = 60 + i * (520 / (skills.length - 1));
+              const y = 280 - s.value * 2.6;
+              const isActive = hovered === s.name;
+              return (
+                <g key={s.name}>
+                  <circle cx={x} cy={y} r={isActive ? 7 : 4.5} fill={isActive ? "#3b82f6" : "#1e293b"} stroke="#fff" strokeWidth="2" />
+                  <text x={x} y={y - 12} textAnchor="middle" className="text-[10px] fill-slate-700 font-semibold" fontSize="10">{s.value}%</text>
+                </g>
+              );
+            })}
+            {skills.map((s, i) => {
+              const x = 60 + i * (520 / (skills.length - 1));
+              return (
+                <text key={s.name} x={x} y="315" textAnchor="end" transform={`rotate(-40, ${x}, 315)`} className="text-[9px] fill-slate-500" fontSize="9">{s.name}</text>
+              );
+            })}
+            <line x1="60" y1="280" x2="580" y2="280" stroke="#cbd5e1" strokeWidth="1.5" />
+          </svg>
+        </div>
+
+        {/* Pie chart */}
+        <div className="flex flex-col items-center">
+          <svg viewBox="0 0 400 400" className="w-full max-w-[320px] h-auto">
+            {slices.map((slice) => (
+              <g key={slice.name}>
+                <path
+                  d={slice.path}
+                  fill={slice.color}
+                  opacity={hovered && hovered !== slice.name ? 0.4 : 0.85}
+                  stroke="#fff"
+                  strokeWidth="2"
+                  className="transition-opacity duration-200 cursor-pointer"
+                  onMouseEnter={() => setHovered(slice.name)}
+                  onMouseLeave={() => setHovered(null)}
+                />
+              </g>
+            ))}
+          </svg>
+          <div className="mt-4 w-full max-w-sm">
+            {slices.map((slice) => {
+              const isActive = hovered === slice.name;
+              return (
+                <div
+                  key={slice.name}
+                  className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-all duration-200 cursor-pointer ${
+                    isActive ? "bg-blue-50 ring-1 ring-blue-200" : ""
+                  }`}
+                  onMouseEnter={() => setHovered(slice.name)}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block h-3 w-3 rounded-sm shrink-0" style={{ backgroundColor: slice.color }} />
+                    <span className={`text-slate-700 ${isActive ? "font-semibold text-blue-700" : ""}`}>{slice.name}</span>
+                  </div>
+                  <span className={`text-xs ${isActive ? "font-bold text-blue-600" : "text-slate-400"}`}>{slice.pct}%</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
