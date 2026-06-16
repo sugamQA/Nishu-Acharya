@@ -2,14 +2,12 @@ import {
   BriefcaseBusiness,
   CalendarDays,
   Facebook,
-  Github,
   GraduationCap,
   HandHeart,
   Instagram,
   Linkedin,
   Mail,
   MapPin,
-  Twitter,
   Stethoscope,
   HeartPulse,
   Microscope,
@@ -54,8 +52,6 @@ export const socials = [
   { label: "Facebook", href: profile.facebook, icon: Facebook },
   { label: "Instagram", href: profile.instagram, icon: Instagram },
   { label: "Email", href: `mailto:${profile.email}`, icon: Mail },
-  { label: "GitHub", href: profile.github, icon: Github },
-  { label: "Twitter", href: profile.twitter, icon: Twitter }
 ];
 
 export const stats = [
