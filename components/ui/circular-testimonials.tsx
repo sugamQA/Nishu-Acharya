@@ -52,14 +52,14 @@ export const CircularTestimonials = ({
   colors = {},
   fontSizes = {},
 }: CircularTestimonialsProps) => {
-  const colorName = colors.name ?? "#000";
+  const colorName = colors.name ?? "#0a0a0a";
   const colorDesignation = colors.designation ?? "#6b7280";
   const colorTestimony = colors.testimony ?? "#4b5563";
-  const colorArrowBg = colors.arrowBackground ?? "#141414";
-  const colorArrowFg = colors.arrowForeground ?? "#f1f1f7";
-  const colorArrowHoverBg = colors.arrowHoverBackground ?? "#00a6fb";
-  const fontSizeName = fontSizes.name ?? "1.5rem";
-  const fontSizeDesignation = fontSizes.designation ?? "0.925rem";
+  const colorArrowBg = colors.arrowBackground ?? "#0891b2";
+  const colorArrowFg = colors.arrowForeground ?? "#ffffff";
+  const colorArrowHoverBg = colors.arrowHoverBackground ?? "#0e7490";
+  const fontSizeName = fontSizes.name ?? "1.75rem";
+  const fontSizeDesignation = fontSizes.designation ?? "1rem";
   const fontSizeQuote = fontSizes.quote ?? "1.125rem";
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -98,15 +98,6 @@ export const CircularTestimonials = ({
     };
   }, [autoplay, testimonialsLength]);
 
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") handlePrev();
-      if (e.key === "ArrowRight") handleNext();
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [activeIndex, testimonialsLength]);
-
   const handleNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % testimonialsLength);
     if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
@@ -115,6 +106,15 @@ export const CircularTestimonials = ({
     setActiveIndex((prev) => (prev - 1 + testimonialsLength) % testimonialsLength);
     if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
   }, [testimonialsLength]);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [handlePrev, handleNext]);
 
   function getImageStyle(index: number): React.CSSProperties {
     const gap = calculateGap(containerWidth);
@@ -241,7 +241,7 @@ export const CircularTestimonials = ({
               onMouseLeave={() => setHoverPrev(false)}
               aria-label="Previous testimonial"
             >
-              <FaArrowLeft size={28} color={colorArrowFg} />
+              <FaArrowLeft size={26} color={colorArrowFg} />
             </button>
             <button
               className="arrow-button next-button"
@@ -253,7 +253,7 @@ export const CircularTestimonials = ({
               onMouseLeave={() => setHoverNext(false)}
               aria-label="Next testimonial"
             >
-              <FaArrowRight size={28} color={colorArrowFg} />
+              <FaArrowRight size={26} color={colorArrowFg} />
             </button>
           </div>
         </div>
@@ -261,17 +261,19 @@ export const CircularTestimonials = ({
       <style jsx>{`
         .testimonial-container {
           width: 100%;
-          max-width: 56rem;
-          padding: 2rem;
+          max-width: 64rem;
+          margin: 0 auto;
+          padding: 2rem 0;
         }
         .testimonial-grid {
           display: grid;
-          gap: 5rem;
+          gap: 4rem;
+          align-items: center;
         }
         .image-container {
           position: relative;
           width: 100%;
-          height: 24rem;
+          height: 26rem;
           perspective: 1000px;
         }
         .testimonial-image {
@@ -280,7 +282,8 @@ export const CircularTestimonials = ({
           height: 100%;
           object-fit: cover;
           border-radius: 1.5rem;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 20px 60px rgba(8, 145, 178, 0.25);
+          border: 2px solid rgba(34, 211, 238, 0.30);
         }
         .testimonial-content {
           display: flex;
@@ -288,11 +291,13 @@ export const CircularTestimonials = ({
           justify-content: space-between;
         }
         .name {
-          font-weight: bold;
-          margin-bottom: 0.25rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+          font-family: var(--font-poppins), system-ui, sans-serif;
         }
         .designation {
           margin-bottom: 2rem;
+          font-weight: 500;
         }
         .quote {
           line-height: 1.75;
@@ -300,18 +305,22 @@ export const CircularTestimonials = ({
         .arrow-buttons {
           display: flex;
           gap: 1.5rem;
-          padding-top: 3rem;
+          padding-top: 2.5rem;
         }
         .arrow-button {
-          width: 2.7rem;
-          height: 2.7rem;
+          width: 3rem;
+          height: 3rem;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: background-color 0.3s;
+          transition: background-color 0.3s, transform 0.2s;
           border: none;
+          box-shadow: 0 10px 30px rgba(8, 145, 178, 0.30);
+        }
+        .arrow-button:hover {
+          transform: scale(1.05);
         }
         @media (min-width: 768px) {
           .testimonial-grid {

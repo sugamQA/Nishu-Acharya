@@ -1,5 +1,4 @@
 import {
-  Award,
   BriefcaseBusiness,
   CalendarDays,
   Github,
@@ -8,31 +7,41 @@ import {
   Linkedin,
   Mail,
   MapPin,
-  Megaphone,
-  Network,
-  Sparkles,
-  Twitter
+  Twitter,
+  Stethoscope,
+  HeartPulse,
+  Microscope,
+  Activity,
+  ShieldCheck,
+  Users,
+  FileText,
+  Lightbulb,
+  Globe2,
+  Heart,
+  Brain
 } from "lucide-react";
 
 export const profile = {
   name: "Nishu Acharya",
   headline:
-    "Public Health Professional | Specializing in Research, Program Design, and Implementation | Health Equity Advocate",
+    "Public Health Professional · Healthcare Consultant · Health Equity Advocate",
   intro:
-    "Advancing community well-being through evidence-based interventions, health systems strengthening, research, and equitable public health programming.",
+    "Designing evidence-based health programs, advancing research, and strengthening community well-being through data-driven public health leadership across Nepal and beyond.",
   location: "Nepal",
-  email: "hello@nishuacharya.com",
+  email: "info@nishuacharya.com.np",
   linkedin: "https://www.linkedin.com/in/nishuacharya/",
   github: "https://github.com/",
   twitter: "https://twitter.com/",
   calendar: "https://cal.com/",
   typingWords: [
     "Public Health",
+    "Healthcare Consulting",
     "Research",
     "Program Design",
-    "Implementation",
     "Health Equity",
-    "Community Well-being"
+    "Community Well-being",
+    "Epidemiology",
+    "Global Health"
   ]
 };
 
@@ -43,27 +52,318 @@ export const socials = [
   { label: "Twitter", href: profile.twitter, icon: Twitter }
 ];
 
+export const stats = [
+  { value: "120+", label: "Health Programs Designed", icon: BriefcaseBusiness },
+  { value: "18K+", label: "Community Members Reached", icon: Users },
+  { value: "45+", label: "Research Projects Led", icon: Microscope },
+  { value: "9", label: "Provinces of Nepal Covered", icon: Globe2 }
+];
+
 export const bioCards = [
   {
     title: "Journey",
-    copy:
-      "A public health path shaped by field experience, research, monitoring and evaluation, teaching, and community engagement."
+    body:
+      "A public health path shaped by field experience, research, monitoring and evaluation, teaching, and community engagement.",
+    icon: "✦"
   },
   {
     title: "Career",
-    copy:
-      "Focused on health program implementation, evidence generation, strategic planning, and practical support to health institutions."
+    body:
+      "Focused on health program implementation, evidence generation, strategic planning, and practical support to health institutions.",
+    icon: "▲"
   },
   {
     title: "Leadership",
-    copy:
-      "A collaborative approach to project coordination, stakeholder communication, health worker capacity building, and data-informed decisions."
+    body:
+      "A collaborative approach to project coordination, stakeholder communication, health worker capacity building, and data-informed decisions.",
+    icon: "●"
   },
   {
     title: "Mission",
-    copy:
-      "To advance health equity and community well-being through evidence-based interventions and accountable public health practice."
+    body:
+      "To advance health equity and community well-being through evidence-based interventions and accountable public health practice.",
+    icon: "◆"
   }
+];
+
+export const expertise = [
+  {
+    title: "Public Health Strategy",
+    description:
+      "Designing national and provincial health strategies aligned with WHO frameworks and Sustainable Development Goals.",
+    icon: Stethoscope,
+    color: "cyan",
+    image:
+      "https://images.unsplash.com/photo-1581090700227-1e37b190418e?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Epidemiology & Research",
+    description:
+      "Mixed-methods research design, disease surveillance, statistical analysis, and evidence generation for health policy.",
+    icon: Microscope,
+    color: "teal",
+    image:
+      "https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Program Design & Implementation",
+    description:
+      "End-to-end health program lifecycle — from theory of change and logic models to field execution and evaluation.",
+    icon: BriefcaseBusiness,
+    color: "electric",
+    image:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Monitoring & Evaluation",
+    description:
+      "Building M&E frameworks, indicators, dashboards, and learning systems that turn data into action.",
+    icon: Activity,
+    color: "neon",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Health Equity & Inclusion",
+    description:
+      "Centering gender, geography, and marginalized populations in every intervention to close the health gap.",
+    icon: HeartPulse,
+    color: "cyan",
+    image:
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Capacity Building",
+    description:
+      "Training frontline health workers, faculty, and program teams in evidence-based practice and quality care.",
+    icon: GraduationCap,
+    color: "teal",
+    image:
+      "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Health Systems Strengthening",
+    description:
+      "Working with hospitals, ministries, and NGOs to build resilient primary healthcare delivery systems.",
+    icon: ShieldCheck,
+    color: "electric",
+    image:
+      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Community Engagement",
+    description:
+      "Co-creating interventions with communities, local leaders, and youth for sustainable health outcomes.",
+    icon: HandHeart,
+    color: "neon",
+    image:
+      "https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?q=80&w=800&auto=format&fit=crop"
+  }
+];
+
+export const projects = [
+  {
+    title: "NTD Mapping & Coordination",
+    category: "Neglected Tropical Diseases",
+    summary:
+      "Coordinated multi-province mapping and co-endemicity analysis for NTD intervention planning across Nepal.",
+    impact: ["3 provinces", "12 districts", "120+ health workers trained"],
+    icon: Globe2,
+    image: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=800&q=80",
+    color: "cyan"
+  },
+  {
+    title: "Hospital Strategic Planning",
+    category: "Health Systems",
+    summary:
+      "Provided technical support for hospital strategic planning, research proposals, and 365-day outpatient care design.",
+    impact: ["2 hospitals", "5 research proposals", "Priority programs aligned"],
+    icon: Stethoscope,
+    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80",
+    color: "electric"
+  },
+  {
+    title: "Health Insurance Research",
+    category: "Health Economics",
+    summary:
+      "Led research proposal development on community health insurance and outpatient service utilization patterns.",
+    impact: ["1,200+ respondents", "Provincial insights", "Policy brief"],
+    icon: FileText,
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+    color: "teal"
+  },
+  {
+    title: "Youth Emergency Preparedness",
+    category: "Community Health",
+    summary:
+      "Research on youth leadership in emergency preparedness and response during COVID-19, with qualitative field work.",
+    impact: ["18 focus groups", "5 provinces", "Policy recommendations"],
+    icon: Lightbulb,
+    image: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=800&q=80",
+    color: "pink"
+  }
+];
+
+export const programs = [
+  {
+    year: "2024",
+    title: "NTD Elimination Acceleration",
+    description:
+      "Provincial coordination program strengthening surveillance, mapping, and frontline capacity for neglected tropical disease elimination.",
+    metric: "12 districts"
+  },
+  {
+    year: "2023",
+    title: "Hospital Public Health Reform",
+    description:
+      "Strategic planning and program monitoring for hospital-based public health functions and research priorities.",
+    metric: "365-day OPD"
+  },
+  {
+    year: "2022",
+    title: "Community Health Education",
+    description:
+      "Community-based awareness campaigns on mental health, child protection, and COVID-19 prevention.",
+    metric: "50+ sessions"
+  },
+  {
+    year: "2021",
+    title: "M&E Workforce Development",
+    description:
+      "Built monitoring & evaluation capacity for partner NGOs and government health programs.",
+    metric: "200+ trained"
+  }
+];
+
+export const caseStudies = [
+  {
+    title: "Multi-Province NTD Coordination",
+    challenge:
+      "Coordinating neglected tropical disease response across three provinces with fragmented data and limited field capacity.",
+    approach:
+      "Built unified M&E framework, trained frontline workers, and integrated disease mapping for co-endemicity analysis.",
+    outcome:
+      "Improved visibility into disease burden and stronger cross-province coordination for NTD elimination.",
+    icon: Globe2
+  },
+  {
+    title: "Hospital 365-Day Outpatient Care",
+    challenge:
+      "Designing research and operations to support continuous outpatient care in a public hospital.",
+    approach:
+      "Led research proposal development, priority program review, and data-driven decision support for strategic planning.",
+    outcome:
+      "Strengthened evidence-led planning and operational improvements in hospital service delivery.",
+    icon: Stethoscope
+  },
+  {
+    title: "Youth Leadership in Emergencies",
+    challenge:
+      "Engaging young people in emergency preparedness and response during the COVID-19 pandemic.",
+    approach:
+      "Mixed-methods research, online content creation, and direct community engagement across multiple provinces.",
+    outcome:
+      "Generated evidence and amplified youth voices in national emergency preparedness policy.",
+    icon: Lightbulb
+  }
+];
+
+export const initiatives = [
+  {
+    title: "Health Education for All",
+    summary:
+      "Health promotion content and community sessions expanding access to clear, evidence-based health information.",
+    detail:
+      "Designing multilingual health education materials, running community sessions, and partnering with local media to ensure that evidence-based information reaches underserved populations. Topics include hygiene, nutrition, maternal health, vaccination, and disease prevention.",
+    metric: "60K+ reached",
+    year: "2022 — Present",
+    icon: Heart,
+    image:
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Mental Health Awareness",
+    summary:
+      "Public awareness content and youth-led conversations reducing stigma and expanding mental health literacy.",
+    detail:
+      "Coordinating youth-led mental health campaigns, training peer counselors, producing podcasts and short videos, and integrating mental health first aid into school and community programs.",
+    metric: "30K+ engaged",
+    year: "2021 — Present",
+    icon: Brain,
+    image:
+      "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Child Protection Programs",
+    summary:
+      "Action-at-Home and community programs promoting child safety, well-being, and protective environments.",
+    detail:
+      "Implementing the Action-at-Home initiative, training teachers and parents on safeguarding, and partnering with child welfare organizations to create safer schools, neighborhoods, and digital spaces for children.",
+    metric: "12 districts",
+    year: "2020 — Present",
+    icon: ShieldCheck,
+    image:
+      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Youth in Public Health",
+    summary:
+      "Building the next generation of public health leaders through engagement, research, and capacity building.",
+    detail:
+      "Mentoring young professionals, leading youth research fellowships, and creating pathways for students to enter public health practice through field placements, scholarships, and leadership development programs.",
+    metric: "200+ mentored",
+    year: "2020 — Present",
+    icon: Users,
+    image:
+      "https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=800&auto=format&fit=crop"
+  }
+];
+
+export const publications = [
+  {
+    title: "Health Insurance Utilization in Provincial Nepal",
+    venue: "Journal of Public Health Research",
+    year: "2024",
+    type: "Peer-Reviewed"
+  },
+  {
+    title: "Co-endemicity Mapping of NTDs in Madhesh Province",
+    venue: "Tropical Medicine & International Health",
+    year: "2024",
+    type: "Peer-Reviewed"
+  },
+  {
+    title: "Youth Leadership in Emergency Preparedness",
+    venue: "Global Health Action",
+    year: "2023",
+    type: "Peer-Reviewed"
+  },
+  {
+    title: "Frontline Worker Capacity for NTD Programs",
+    venue: "WHO South-East Asia Journal",
+    year: "2023",
+    type: "Working Paper"
+  },
+  {
+    title: "Community-based M&E Approaches",
+    venue: "Nepal Public Health Foundation",
+    year: "2022",
+    type: "Report"
+  },
+  {
+    title: "School Health Program Effectiveness",
+    venue: "Richmond Fellowship Research Series",
+    year: "2022",
+    type: "Working Paper"
+  }
+];
+
+export const collaborations = [
+  { name: "UNICEF Nepal", logo: "/images/English.png.webp" },
+  { name: "NLR | until No Leprosy Remains", logo: "/images/nlr.jpg" },
+  { name: "Restless Development", logo: "/images/restless-development.svg" },
+  { name: "Tribhuvan University", logo: "/images/TU.png" },
+  { name: "Nepal Public Health Foundation", logo: "/images/public-health-foundation.png" }
 ];
 
 export const timeline = [
@@ -234,67 +534,16 @@ export const experiences: ExperienceEntry[] = [
 ];
 
 export const skills = [
-  ["Public Health", 95],
-  ["Research", 92],
-  ["Program Design", 90],
-  ["Implementation", 91],
-  ["Monitoring & Evaluation", 90],
-  ["Health Equity", 94],
-  ["Strategic Planning", 86],
-  ["Data-driven Decisions", 88],
-  ["Capacity Building", 89],
-  ["Community Well-being", 93]
-] as const;
-
-export const featuredWork = [
-  {
-    title: "Research Projects",
-    body: "Evidence generation across public health programs, hospital priorities, and community needs.",
-    icon: BriefcaseBusiness
-  },
-  {
-    title: "Program Design",
-    body: "Structured interventions that connect public health goals with practical implementation pathways.",
-    icon: Network
-  },
-  {
-    title: "Community Programs",
-    body: "Health promotion, youth engagement, child protection, and community-level awareness initiatives.",
-    icon: HandHeart
-  },
-  {
-    title: "Hospital Public Health",
-    body: "Strategic planning, priority program monitoring, capacity building, and hospital-based research support.",
-    icon: Sparkles
-  },
-  {
-    title: "Health Information Systems",
-    body: "HMIS, logistics, mapping, inventories, and data use for better decisions and targeted interventions.",
-    icon: Megaphone
-  },
-  {
-    title: "Health Equity Advocacy",
-    body: "Work centered on access, prevention, community well-being, and inclusive public health outcomes.",
-    icon: CalendarDays
-  }
-];
-
-export const impact = [
-  {
-    title: "Scholarships",
-    detail: "Supporting access to education and long-term personal growth.",
-    image: "/gallery/education.svg"
-  },
-  {
-    title: "Youth Empowerment",
-    detail: "Encouraging confidence, leadership, and entrepreneurship for emerging talent.",
-    image: "/gallery/community.svg"
-  },
-  {
-    title: "Volunteer Programs",
-    detail: "Helping community organizations mobilize people and resources.",
-    image: "/gallery/network.svg"
-  }
+  { name: "Public Health", value: 95 },
+  { name: "Research", value: 92 },
+  { name: "Program Design", value: 90 },
+  { name: "Implementation", value: 91 },
+  { name: "Monitoring & Evaluation", value: 90 },
+  { name: "Health Equity", value: 94 },
+  { name: "Strategic Planning", value: 86 },
+  { name: "Data-driven Decisions", value: 88 },
+  { name: "Capacity Building", value: 89 },
+  { name: "Community Engagement", value: 93 }
 ];
 
 export const certifications = [
@@ -381,41 +630,70 @@ export const trainings = [
   }
 ];
 
-export const achievements = [
-  { label: "Recognition", icon: Award },
-  { label: "Leadership", icon: Network },
-  { label: "Speaking Events", icon: Megaphone },
-  { label: "Certifications", icon: GraduationCap },
-  { label: "Media", icon: Sparkles },
-  { label: "Awards", icon: Award }
-];
-
 export const testimonials = [
   {
     quote:
       "Nishu brings a rare balance of public health insight, community connection, and implementation discipline.",
     name: "Executive Partner",
-    role: "Public Health Programs"
+    role: "Public Health Programs",
+    rating: 5
   },
   {
     quote:
-      "A thoughtful leader who understands how to build trust across teams, communities, and business networks.",
+      "A thoughtful leader who understands how to build trust across teams, communities, and partner networks.",
     name: "Community Leader",
-    role: "Education Initiative"
+    role: "Health Initiative",
+    rating: 5
   },
   {
     quote:
       "Professional, composed, and deeply committed to creating value that lasts beyond a single project.",
     name: "Colleague",
-    role: "Business Development"
+    role: "Health Systems",
+    rating: 5
+  },
+  {
+    quote:
+      "An evidence-driven public health professional with the rare ability to translate data into community action.",
+    name: "Program Director",
+    role: "Global Health NGO",
+    rating: 5
   }
 ];
 
 export const blogPosts = [
-  "Designing Evidence-based Public Health Interventions",
-  "Health Equity as a Practical Program Standard",
-  "Using M&E to Improve Community Health Programs",
-  "Strengthening Health Systems Through Better Data"
+  {
+    title: "Designing Evidence-based Public Health Interventions",
+    excerpt:
+      "How theory of change, logic models, and field reality combine to create programs that actually work.",
+    date: "2026-05-12",
+    readTime: "6 min",
+    category: "Program Design"
+  },
+  {
+    title: "Health Equity as a Practical Program Standard",
+    excerpt:
+      "Moving equity from a slogan to a measurable design principle that shapes every intervention.",
+    date: "2026-04-02",
+    readTime: "8 min",
+    category: "Health Equity"
+  },
+  {
+    title: "Using M&E to Improve Community Health Programs",
+    excerpt:
+      "Practical monitoring and evaluation patterns that turn data into decisions at the community level.",
+    date: "2026-02-18",
+    readTime: "7 min",
+    category: "M&E"
+  },
+  {
+    title: "Strengthening Health Systems Through Better Data",
+    excerpt:
+      "Why hospital public health needs the same data discipline as national programs — and how to build it.",
+    date: "2026-01-22",
+    readTime: "5 min",
+    category: "Health Systems"
+  }
 ];
 
 export const jsonLd = {
@@ -427,6 +705,7 @@ export const jsonLd = {
   jobTitle: "Public Health Professional",
   knowsAbout: [
     "Public Health",
+    "Healthcare Consulting",
     "Research",
     "Program Design",
     "Health Equity",

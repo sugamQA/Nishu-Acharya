@@ -1,0 +1,73 @@
+ ⨯ ./components/nav.tsx
+Error:   [31mx[0m Expected '</', got 'jsx text (
+  [31m|[0m
+  [31m|[0m         )'
+    ,-[[36;1;4mC:\Users\Dell\Desktop\ni\Nishu-Acharya\components\nav.tsx[0m:83:1]
+ [2m80[0m |                   Public Health
+ [2m81[0m |                 </span>
+ [2m82[0m |               </div>
+ [2m83[0m | [35;1m,[0m[35;1m-[0m[35;1m>[0m         </a>
+ [2m84[0m | [35;1m|[0m   
+ [2m85[0m | [35;1m`[0m[35;1m-[0m[35;1m>[0m         <div className="hidden md:flex items-center gap-1">
+ [2m86[0m |               {links.map((link) => {
+ [2m87[0m |                 const isActive = active === (link.href === "/" ? "home" : link.href.slice(1));
+ [2m88[0m |                 return (
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/nav.tsx
+./app/page.tsx
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\server\next-font-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Dell\\Desktop\\ni\\Nishu-Acharya\\.next\\server\\next-font-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Dell\\Desktop\\ni\\Nishu-Acharya\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\server\next-font-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Dell\\Desktop\\ni\\Nishu-Acharya\\.next\\server\\next-font-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Dell\\Desktop\\ni\\Nishu-Acharya\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Dell\\Desktop\\ni\\Nishu-Acharya\\.next\\routes-manifest.json'
+}
+ ⨯ Error: Cannot find module './124.js'
+Require stack:
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\server\webpack-runtime.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\server\pages\_document.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\server\require.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\server\load-components.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\build\utils.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\build\swc\options.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\build\swc\index.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\server\config.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\server\next.js
+- C:\Users\Dell\Desktop\ni\Nishu-Acharya\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\server\app\page.js:10:133491)
+    at Object.<anonymous> (C:\Users\Dell\Desktop\ni\Nishu-Acharya\.next\server\app\page.js:10:133544) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}

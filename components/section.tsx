@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Reveal } from "@/components/reveal";
 
 export function Section({
@@ -5,24 +6,36 @@ export function Section({
   eyebrow,
   title,
   children,
-  intro
+  intro,
+  className,
+  bg
 }: {
   id: string;
   eyebrow: string;
-  title: string;
-  intro?: string;
-  children: React.ReactNode;
+  title: ReactNode;
+  children: ReactNode;
+  intro?: ReactNode;
+  className?: string;
+  bg?: string;
 }) {
   return (
-    <section id={id} className="relative px-5 py-20 sm:px-8 lg:px-12">
+    <section
+      id={id}
+      className={`relative section-pad ${bg ?? ""} ${className ?? ""}`}
+    >
       <div className="mx-auto max-w-7xl">
         <Reveal>
-          <div className="mb-10 max-w-3xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-blush dark:text-blush">
+          <div className="mb-8 max-w-3xl sm:mb-12">
+            <span className="eyebrow">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
               {eyebrow}
-            </p>
-            <h2 className="font-display text-4xl leading-tight text-balance sm:text-5xl">{title}</h2>
-            {intro ? <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">{intro}</p> : null}
+            </span>
+            <h2 className="mt-5 font-display text-3xl leading-[1.1] text-balance sm:text-4xl md:text-5xl text-slate-900">
+              {title}
+            </h2>
+            {intro ? (
+              <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{intro}</p>
+            ) : null}
           </div>
         </Reveal>
         {children}

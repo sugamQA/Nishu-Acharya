@@ -1,0 +1,72 @@
+
+> nishu-acharya-portfolio@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.18
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.83:3000
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 2.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 3.5s (1557 modules)
+ GET / 200 in 4868ms
+ ✓ Compiled in 813ms (1413 modules)
+ GET / 200 in 141ms
+ ✓ Compiled in 668ms (1413 modules)
+ GET / 200 in 117ms
+ ✓ Compiled in 1116ms (1413 modules)
+ GET / 200 in 245ms
+ ✓ Compiled in 282ms (644 modules)
+ GET / 200 in 261ms
+ ✓ Compiled in 275ms (644 modules)
+ GET / 200 in 41ms
+ ✓ Compiled in 619ms (644 modules)
+ GET / 200 in 51ms
+ ✓ Compiled in 391ms (644 modules)
+ GET / 200 in 35ms
+ ✓ Compiled in 353ms (644 modules)
+ GET / 200 in 50ms
+ ✓ Compiled in 890ms (1413 modules)
+ GET / 200 in 378ms
+ ✓ Compiled in 537ms (1413 modules)
+ GET / 200 in 192ms
+ ✓ Compiled in 525ms (1413 modules)
+ GET / 200 in 81ms
+ GET / 200 in 705ms
+ ✓ Compiled in 561ms (1413 modules)
+ ✓ Compiled in 414ms (1413 modules)
+ ✓ Compiled in 410ms (1413 modules)
+ ✓ Compiled in 397ms (1413 modules)
+ ✓ Compiled in 483ms (1413 modules)
+ ✓ Compiled in 449ms (1413 modules)
+ ✓ Compiled in 362ms (1413 modules)
+ ✓ Compiled in 491ms (1413 modules)
+ ✓ Compiled in 515ms (1413 modules)
+ ✓ Compiled in 380ms (1413 modules)
+ ✓ Compiled in 451ms (1413 modules)
+ ✓ Compiled in 525ms (1413 modules)
+ ✓ Compiled in 481ms (1413 modules)
+ GET / 200 in 596ms
+ ✓ Compiled in 388ms (1413 modules)
+ ✓ Compiled in 465ms (1413 modules)
+ ✓ Compiled in 374ms (1413 modules)
+ ✓ Compiled in 439ms (1413 modules)
+ ✓ Compiled in 529ms (1413 modules)
+ GET / 200 in 188ms
+ ✓ Compiled in 999ms (1413 modules)
+ ✓ Compiled in 314ms (1413 modules)
+ ✓ Compiled in 351ms (1413 modules)
+ ✓ Compiled in 495ms (1413 modules)
+ ✓ Compiled in 273ms (1413 modules)
+ ✓ Compiled in 352ms (1413 modules)
+ ✓ Compiled in 572ms (1413 modules)
+ ✓ Compiled in 452ms (1413 modules)
+ ✓ Compiled in 1760ms (1470 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 728ms (1803 modules)
+ GET / 500 in 2340ms
+ GET / 500 in 314ms
+ GET / 500 in 421ms

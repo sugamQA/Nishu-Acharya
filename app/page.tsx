@@ -1,239 +1,712 @@
+"use client";
+
+import { useState } from "react";
 import {
   ArrowRight,
+  ArrowUpRight,
+  Award,
   BadgeCheck,
-  BriefcaseBusiness,
+  BookOpen,
+  Briefcase,
   CalendarDays,
-  Download,
-  ExternalLink,
+  CheckCircle2,
+  ChevronDown,
+  CircleDot,
+  FileText,
   GraduationCap,
-  MapPin,
   Send,
-  Sparkles
+  Stethoscope,
+  Target,
+  TrendingUp
 } from "lucide-react";
-import { AboutSection } from "@/components/about-section";
 import { AnimatedCursor } from "@/components/animated-cursor";
-import { CircularTestimonials } from "@/components/ui/circular-testimonials";
-import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
-import { GlowyWavesHero } from "@/components/ui/glowy-waves-hero-shadcnui";
 import { LoadingScreen } from "@/components/loading-screen";
 import { Nav } from "@/components/nav";
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
-import { SkillsFeatureSection } from "@/components/ui/skills-feature-section";
-import { TypingText } from "@/components/typing-text";
+import { Counter } from "@/components/ui/counter";
+import { MouseLight } from "@/components/ui/mouse-light";
+import { TypingCycle } from "@/components/typing-cycle";
+import { CircularTestimonials } from "@/components/ui/circular-testimonials";
+import { N8nWorkflowBlock } from "@/components/ui/n8n-workflow-block-shadcnui";
+import { ExperiencePopup } from "@/components/experience-popup";
 import {
-  blogPosts,
+  bioCards,
+  caseStudies,
   certifications,
+  collaborations,
   contactItems,
+  education,
+  expertise,
   experiences,
-  featuredWork,
-  impact,
+  initiatives,
   profile,
+  programs,
+  projects,
+  publications,
   skills,
   socials,
-  testimonials,
+  stats,
+  timeline,
   trainings
 } from "@/lib/profile";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-executive-mesh">
+    <main className="relative min-h-screen overflow-x-hidden bg-ink text-slate-900">
       <LoadingScreen />
       <AnimatedCursor />
+      <MouseLight />
       <Nav />
-      <section id="home" className="mt-[4rem]"><Hero /></section>
+
+      <Hero />
       <AboutSection />
-      <Experience />
-      <Skills />
-      <Certifications />
-      <Training />
-      <CommunityImpact />
-      <Achievements />
-      <Gallery />
-      <Testimonials />
-      <Blog />
-      <Contact />
+      <ExpertiseSection />
+      <ProjectsSection />
+      <ProgramsSection />
+      <CaseStudiesSection />
+      <InitiativesSection />
+      <ResearchSection />
+      <TestimonialsSection />
+      <CollaborationsSection />
+      <ContactSection />
       <Footer />
     </main>
   );
 }
 
+/* ---------- HERO ---------- */
 function Hero() {
   return (
-    <GlowyWavesHero>
-      <video className="fixed inset-0 w-full h-full object-cover opacity-70 -z-10" autoPlay muted loop>
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260419_065931_e3ca7b53-d32e-4ad5-81de-dc9d6fcfda6d.mp4" type="video/mp4" />
+    <section id="home" className="relative min-h-screen w-full overflow-hidden">
+      {/* Video background — full width */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/og.svg"
+        aria-hidden="true"
+      >
+        <source
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260417_061226_74f0749c-a22d-42b3-895e-5d6203bc741c.mp4"
+          type="video/mp4"
+        />
       </video>
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_.92fr]">
-        <div className="text-left">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/40 bg-background/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-foreground/70 dark:border-border/60 dark:bg-background/70 dark:text-foreground/80">
-            <Sparkles className="h-4 w-4 text-blush" aria-hidden="true" />
-            Public Health Portfolio
+
+      {/* Dark overlay + subtle grid for legibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink/55" />
+      <div className="absolute inset-0 bg-neural-grid bg-grid-lg opacity-20" />
+      <div className="absolute inset-0">
+        <div className="absolute -top-20 -left-20 h-96 w-96 rounded-full bg-cyan/20 blur-[120px]" />
+        <div className="absolute top-40 -right-20 h-96 w-96 rounded-full bg-electric/20 blur-[120px]" />
+        <div className="absolute bottom-0 left-1/2 h-80 w-[60rem] -translate-x-1/2 rounded-full bg-teal/15 blur-[120px]" />
+      </div>
+
+      {/* Centered content */}
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-4 pt-24 pb-12 text-center sm:px-6 sm:pt-28 sm:pb-16 lg:px-12">
+        <Reveal>
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-cyan/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-cyan backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
+            Public Health Intelligence
           </div>
-          <h1 className="mb-6 text-4xl font-semibold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            <span className="bg-gradient-to-r from-blush via-blush to-sky bg-clip-text text-transparent">
-              {profile.name.split(" ")[0]}
-            </span>{" "}
-            <span className="bg-gradient-to-r from-sky via-blush to-rose bg-clip-text text-transparent">
-              {profile.name.split(" ").slice(1).join(" ")}
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <h1 className="mt-6 font-display text-5xl leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+            <span className="block text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">Designing the future of</span>
+            <span className="mt-2 block">
+              <TypingCycle
+                words={[
+                  "community health.",
+                  "public health.",
+                  "health equity.",
+                  "global well-being.",
+                  "preventive care."
+                ]}
+              />
             </span>
           </h1>
-          <p className="mb-6 max-w-2xl text-lg text-foreground/70 md:text-2xl">
-            {profile.headline}
+        </Reveal>
+
+        <Reveal delay={0.18}>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+            I&apos;m <span className="text-white font-semibold">{profile.name}</span> — a
+            public health professional and healthcare consultant advancing
+            evidence-based programs, research, and equitable well-being across Nepal.
           </p>
-          <p className="mb-6 max-w-2xl text-base text-foreground/60">
-            {profile.intro}
-          </p>
-          <div className="mb-6 text-2xl font-semibold text-foreground/80 sm:text-3xl">
-            <TypingText words={profile.typingWords} />
+        </Reveal>
+
+        <Reveal delay={0.26}>
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+            <a
+              href="#contact"
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-cyan via-pink to-electric px-7 py-3.5 text-sm font-semibold text-white shadow-cyanglow transition hover:shadow-glow-strong"
+            >
+              <span className="relative z-10">Book a Consultation</span>
+              <ArrowRight className="relative z-10 h-4 w-4 transition group-hover:translate-x-1" />
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-pink via-cyan to-teal transition-transform duration-500 group-hover:translate-x-0" />
+            </a>
+            <a
+              href="#projects"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:border-cyan/40 hover:bg-cyan/10"
+            >
+              Explore Work
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
           </div>
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row">
-            <a href="#work" className="inline-flex items-center gap-2 rounded-full bg-blush px-8 py-3 text-sm font-semibold text-white shadow-roseglow transition hover:-translate-y-0.5 uppercase tracking-[0.2em]">
-              View Portfolio <ArrowRight className="h-4 w-4" />
-            </a>
-            <a href={profile.linkedin} className="inline-flex items-center gap-2 rounded-full border border-border/40 bg-background/60 px-8 py-3 text-sm font-semibold text-foreground/80 backdrop-blur transition-all hover:border-border/60 hover:bg-background/70 uppercase tracking-[0.2em]">
-              Connect <ExternalLink className="h-4 w-4" />
-            </a>
-            <a href="/Nishu-Acharya-Resume.pdf" className="inline-flex items-center gap-2 rounded-full border border-border/40 bg-background/60 px-8 py-3 text-sm font-semibold text-foreground/80 backdrop-blur transition-all hover:border-border/60 hover:bg-background/70 uppercase tracking-[0.2em]">
-              Download Resume <Download className="h-4 w-4" />
-            </a>
-          </div>
-          <div className="flex flex-wrap gap-3">
+        </Reveal>
+
+        <Reveal delay={0.34}>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
             {socials.map(({ label, href, icon: Icon }) => (
-              <a key={label} href={href} aria-label={label} className="grid h-11 w-11 place-items-center rounded-full border border-border/40 bg-background/60 backdrop-blur transition hover:-translate-y-1 hover:text-blush">
-                <Icon className="h-4 w-4" />
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="group grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 backdrop-blur transition hover:-translate-y-0.5 hover:border-cyan/50 hover:bg-cyan/10"
+              >
+                <Icon className="h-4 w-4 text-slate-700 transition group-hover:text-cyan" />
               </a>
             ))}
-          </div>
-        </div>
-        <div className="relative mx-auto max-w-[430px]">
-          <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-blush/20 via-sky/20 to-signal/20 blur-2xl" />
-          <div className="relative rounded-[1.75rem] luxury-border p-8 shadow-luxury">
-            <div className="mx-auto grid h-40 w-40 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-blush/20 via-white/80 to-sky/25 p-2 shadow-luxury dark:via-white/10 sm:h-48 sm:w-48">
-              <img
-                src="/profile-photo.jpeg"
-                alt="Nishu Acharya"
-                className="h-full w-full rounded-full object-cover object-center ring-4 ring-white/80 dark:ring-white/15"
-              />
-            </div>
-            <div className="mt-8 rounded-2xl glass p-5 text-center">
-              <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-300">Public Health Focus</p>
-              <p className="mt-2 font-semibold">Research, program design, implementation, and health equity.</p>
+            <div className="ml-2 flex items-center gap-2 text-xs text-slate-500">
+              <CircleDot className="h-3 w-3 text-emerald-400 animate-pulse" />
+              Available for consulting · 2026
             </div>
           </div>
-        </div>
+        </Reveal>
+
+        {/* Hero stats */}
+        <Reveal delay={0.42}>
+          <div className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">
+            {stats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`depth-card holo-bg-${i + 1} p-4 backdrop-blur`}
+              >
+                <stat.icon className="h-4 w-4 text-cyan" />
+                <p className="mt-3 text-2xl font-bold text-white">
+                  <Counter value={stat.value} />
+                </p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/70">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Scroll indicator */}
+        <a
+          href="#about"
+          className="group absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/70 hover:text-cyan transition"
+        >
+          <span>Scroll to explore</span>
+          <ChevronDown className="h-4 w-4 animate-bounce" />
+        </a>
       </div>
-    </GlowyWavesHero>
+    </section>
   );
 }
 
-function Experience() {
+/* ---------- ABOUT ---------- */
+function AboutSection() {
+  const [expOpen, setExpOpen] = useState(false);
   return (
-    <section id="experience" className="relative px-5 py-20 sm:px-8 lg:px-12">
-      <div className="mx-auto max-w-7xl">
+    <Section
+      id="about"
+      bg="bg-section-about"
+      eyebrow="About"
+      title={
+        <>
+          A public health leader advancing{" "}
+          <span className="gradient-text">evidence-based</span> community well-being.
+        </>
+      }
+      intro="My work spans research, program design, implementation, health systems support, monitoring & evaluation, and health equity advocacy — grounded in field experience across Nepal."
+    >
+      <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
+        {/* Portrait + bio card */}
         <Reveal>
-          <div className="mb-2 flex items-center gap-3">
-            <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-blush/20 to-sky/20 text-blush">
-              <BriefcaseBusiness className="h-3.5 w-3.5" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blush">Experience</p>
+          <div className="relative h-full">
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-cyan/20 to-teal/10 blur-2xl" />
+            <div
+              className="relative rounded-3xl p-6 sm:p-8 md:p-10 holographic h-full overflow-hidden border border-cyan/30"
+              style={{
+                backgroundImage:
+                  "linear-gradient(120deg, rgba(186,230,253,0.55) 0%, rgba(125,211,252,0.30) 45%, rgba(34,211,238,0.10) 80%), url(/images/medical-mask.jpg)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundBlendMode: "normal",
+                filter: "saturate(1.2) contrast(1.1) hue-rotate(-5deg)"
+              }}
+            >
+              <div className="flex flex-col items-center text-center gap-5 sm:flex-row sm:items-start sm:text-left sm:gap-6">
+                <div className="relative shrink-0">
+                  <div className="absolute -inset-2 rounded-full bg-cyan/30 blur-lg sm:-inset-3" />
+                  <img
+                    src="/profile-photo.jpeg"
+                    alt={profile.name}
+                    className="relative h-24 w-24 rounded-full object-cover border-[3px] border-cyan/40 shadow-cyanglow sm:h-28 sm:w-28 md:h-32 md:w-32"
+                  />
+                  <span className="absolute -bottom-1 -right-1 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-cyan to-electric border-[3px] border-white shadow-md sm:h-8 sm:w-8 md:h-9 md:w-9">
+                    <BadgeCheck className="h-3.5 w-3.5 text-white sm:h-4 sm:w-4" />
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-2xl font-semibold text-slate-900 sm:text-3xl">{profile.name}</h3>
+                  <p className="mt-1.5 text-sm font-medium text-cyan-700">
+                    Public Health Professional · Healthcare Consultant
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {["Research", "Program Design", "Health Equity", "M&E"].map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan-700"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <p className="text-[15px] leading-7 text-slate-700">{profile.intro}</p>
+              </div>
+
+              <div className="mt-8 grid grid-cols-3 gap-3 border-t border-slate-200 pt-6">
+                {[
+                  { label: "Years", value: "6+" },
+                  { label: "Provinces", value: "7" },
+                  { label: "Programs", value: "25+" }
+                ].map((s) => (
+                  <div
+                    key={s.label}
+                    className="rounded-2xl border border-slate-200/80 bg-white/60 p-3 text-center transition hover:border-cyan/40 hover:bg-cyan/5"
+                  >
+                    <p className="text-3xl font-bold gradient-text">
+                      <Counter value={s.value} />
+                    </p>
+                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      {s.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6">
+                <button
+                  onClick={() => setExpOpen(true)}
+                  onMouseEnter={() => setExpOpen(true)}
+                  className="group relative inline-flex w-56 h-14 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-cyan to-electric px-7 text-base font-semibold tracking-wide text-white shadow-cyanglow transition hover:shadow-glow-strong"
+                >
+                  <span className="relative z-10">
+                    <Briefcase className="inline-block h-5 w-5" />
+                  </span>
+                  <span className="relative z-10">About Experience</span>
+                  <span className="absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                </button>
+              </div>
+            </div>
           </div>
         </Reveal>
-        <Reveal delay={0.05}>
-          <div className="relative">
-            <div className="absolute -left-2 top-0 h-full w-1 rounded-full bg-gradient-to-b from-blush via-sky to-transparent opacity-40" />
-            <h2 className="font-display text-4xl leading-tight text-balance sm:text-5xl pl-6">
-              Public health experience{" "}
-              <span className="bg-gradient-to-r from-blush via-blush to-sky bg-clip-text text-transparent">
-                across teaching, hospitals, NTD programs,
-              </span>{" "}
-              M&amp;E, and youth engagement.
-            </h2>
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300 pl-6 border-l-2 border-blush/30">
-            A LinkedIn-informed timeline showing roles, organizations, durations, locations, courses, responsibilities, and evidence of applied health leadership.
-          </p>
-        </Reveal>
-      <div className="relative mt-12">
-        <div className="absolute left-[23px] top-0 h-full w-px bg-gradient-to-b from-blush/40 via-sky/30 to-transparent hidden md:block" />
-        <div className="space-y-8">
-          {experiences.map((item, index) => (
-            <Reveal key={`${item.company}-${index}`} delay={index * 0.08}>
-              <div className="relative md:pl-16">
-                <div className="absolute left-[13px] top-8 z-10 hidden h-5 w-5 rounded-full border-2 border-blush bg-white shadow-lg shadow-blush/20 md:block dark:bg-ink" />
-                <article className="group relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white/70 p-6 shadow-lg shadow-slate-200/40 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blush/10 dark:border-white/10 dark:bg-white/5 dark:shadow-none">
-                  <div className="absolute right-0 top-0 h-24 w-48 rounded-bl-[4rem] bg-gradient-to-bl from-blush/[0.04] to-transparent" />
-                  <div className="relative">
-                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                      <div className="flex gap-4">
-                        <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-blush/20 to-sky/20 text-sm font-bold text-blush shadow-sm">
-                          {item.logo}
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-semibold">{item.position}</h3>
-                          <p className="mt-1 text-slate-600 dark:text-slate-300">
-                            {item.companyUrl ? (
-                              <a href={item.companyUrl} className="font-medium text-blush hover:text-rose">
-                                {item.company}
-                              </a>
-                            ) : (
-                              <span className="font-medium text-blush">{item.company}</span>
-                            )}
-                            <span className="mx-2">·</span>
-                            {item.type}
-                          </p>
-                          <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400">
-                            <MapPin className="h-3.5 w-3.5 inline" />
-                            {item.location}
-                          </p>
-                        </div>
-                      </div>
-                      <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-blush/10 to-sky/10 px-4 py-2 text-xs font-semibold text-blush ring-1 ring-blush/20">
-                        <CalendarDays className="h-3.5 w-3.5" />
+
+        {/* Bio cards */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {bioCards.map((card, i) => (
+            <Reveal key={card.title} delay={i * 0.08}>
+              <div className="depth-card bg-card-about group h-full p-5">
+                <div className="flex items-center justify-between">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-cyan/20 to-electric/20 border border-cyan/30 text-cyan">
+                    <span className="text-base">{card.icon}</span>
+                  </span>
+                  <span className="text-xs text-slate-300">0{i + 1}</span>
+                </div>
+                <h4 className="mt-4 text-lg font-semibold text-slate-900">{card.title}</h4>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{card.body}</p>
+                <div className="mt-4 h-px w-full bg-gradient-to-r from-cyan/40 via-white/5 to-transparent" />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+
+      {/* Education + Timeline */}
+      <div
+        className="mt-16 grid gap-8 rounded-3xl p-6 sm:p-8 lg:grid-cols-2 lg:p-10"
+        style={{
+          backgroundImage: "url(/images/graduation.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center"
+        }}
+      >
+        <Reveal>
+          <div>
+            <h3 className="flex items-center gap-3 text-2xl font-semibold text-slate-900">
+              <GraduationCap className="h-5 w-5 text-cyan" />
+              Education
+            </h3>
+            <div className="mt-6 space-y-4">
+              {education.map((item, i) => (
+                <Reveal key={item.degree} delay={i * 0.06}>
+                  <a
+                    href={item.url}
+                    className="group flex gap-4 rounded-2xl border border-cyan/30 bg-white/40 p-5 shadow-sm backdrop-blur-md transition"
+                  >
+                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-cyan/20 to-electric/20 border border-cyan/30 text-sm font-bold text-cyan">
+                      {item.logo}
+                    </span>
+                    <span className="flex-1">
+                      <span className="block text-lg font-semibold text-slate-900">{item.school}</span>
+                      <span className="mt-1 block text-sm text-slate-800">{item.degree}</span>
+                      <span className="mt-3 inline-flex rounded-full bg-cyan/20 border border-cyan/40 px-3 py-1 text-xs font-semibold text-cyan">
                         {item.duration}
                       </span>
+                    </span>
+                    <ArrowUpRight className="h-4 w-4 text-slate-500 transition group-hover:text-cyan" />
+                  </a>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div className="rounded-3xl border border-cyan/30 bg-white/40 p-6 backdrop-blur-md sm:p-8">
+            <h3 className="flex items-center gap-3 text-2xl font-semibold text-slate-900">
+              <Target className="h-5 w-5 text-cyan" />
+              Journey Timeline
+            </h3>
+            <div className="relative mt-6 space-y-4 border-l border-cyan/30 pl-6">
+              {timeline.map((item, i) => (
+                <Reveal key={item.title} delay={i * 0.08}>
+                  <div className="relative">
+                    <span className="absolute -left-[31px] top-2 grid h-4 w-4 place-items-center rounded-full bg-cyan shadow-cyanglow">
+                      <span className="h-1.5 w-1.5 rounded-full bg-ink" />
+                    </span>
+                    <span className="inline-flex rounded-full bg-cyan/20 border border-cyan/40 px-3 py-1 text-xs font-semibold text-cyan">
+                      {item.year}
+                    </span>
+                    <h4 className="mt-2 text-lg font-semibold text-slate-900">{item.title}</h4>
+                    <p className="mt-1 text-sm leading-6 text-slate-800">{item.body}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
+      <ExperiencePopup
+        open={expOpen}
+        onClose={() => setExpOpen(false)}
+        experiences={experiences}
+      />
+    </Section>
+  );
+}
+
+/* ---------- EXPERTISE ---------- */
+function ExpertiseSection() {
+  const colorMap: Record<string, { text: string; bg: string; border: string; glow: string }> = {
+    cyan: { text: "text-cyan", bg: "from-cyan/20", border: "border-cyan/30", glow: "shadow-cyanglow" },
+    teal: { text: "text-teal", bg: "from-teal/20", border: "border-teal/30", glow: "shadow-tealglow" },
+    electric: { text: "text-electric", bg: "from-electric/20", border: "border-electric/30", glow: "" },
+    neon: { text: "text-pink", bg: "from-pink/20", border: "border-pink/30", glow: "shadow-[0_0_40px_rgba(236,72,153,0.3)]" }
+  };
+
+  return (
+    <Section
+      id="expertise"
+      bg="bg-section-expertise"
+      eyebrow="Expertise"
+      title={
+        <>
+          Deep capabilities across{" "}
+          <span className="gradient-text">public health domains.</span>
+        </>
+      }
+      intro="Core competencies developed through field experience, research, monitoring & evaluation, teaching, and community engagement across Nepal."
+    >
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {expertise.map((item, i) => {
+          const c = colorMap[item.color];
+          return (
+            <Reveal key={item.title} delay={i * 0.05}>
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                {/* Image header */}
+                <div
+                  className={`relative h-40 w-full overflow-hidden bg-gradient-to-br ${c.bg} to-transparent`}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
+                  <span
+                    className={`absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-xl bg-white/95 shadow-lg border ${c.border}`}
+                  >
+                    <item.icon className={`h-5 w-5 ${c.text}`} />
+                  </span>
+                </div>
+
+                {/* Body */}
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="text-lg font-semibold leading-snug text-slate-900">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">
+                    {item.description}
+                  </p>
+
+                  <div className="mt-auto flex items-center justify-between border-t border-slate-200 pt-4">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      Domain
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan transition group-hover:gap-3">
+                      Learn more
+                      <ArrowRight className="h-3 w-3 transition group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+
+      {/* Skills bars */}
+      <Reveal>
+        <div className="mt-14 glass-card rounded-3xl p-8 holographic">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h3 className="text-2xl font-semibold text-slate-900">Core Competencies</h3>
+              <p className="mt-1 text-sm text-slate-500">Proficiency built across research, practice, and teaching.</p>
+            </div>
+            <span className="text-xs uppercase tracking-[0.2em] text-cyan">Self-assessed proficiency</span>
+          </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {skills.map((skill, i) => (
+              <Reveal key={skill.name} delay={i * 0.04}>
+                <div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-slate-900">{skill.name}</span>
+                    <span className="text-cyan">{skill.value}%</span>
+                  </div>
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-200/80">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-cyan via-electric to-teal shadow-cyanglow"
+                      style={{ width: `${skill.value}%` }}
+                    />
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ---------- PROJECTS ---------- */
+function ProjectsSection() {
+  return (
+    <Section
+      id="projects"
+      bg="bg-section-projects"
+      eyebrow="Projects & Research"
+      title={
+        <>
+          Evidence-based public health{" "}
+          <span className="gradient-text">projects & research.</span>
+        </>
+      }
+      intro="Selected projects spanning neglected tropical disease coordination, hospital public health, health economics, and youth-led emergency preparedness."
+    >
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {projects.map((project, i) => {
+          const colorClasses: Record<string, { accent: string; iconBg: string; badge: string; hover: string; glow: string }> = {
+            cyan: { accent: "text-cyan", iconBg: "from-cyan/20 to-electric/15 border-cyan/30", badge: "border-cyan/30 bg-cyan/5 text-cyan", hover: "group-hover:border-cyan/50", glow: "shadow-cyanglow" },
+            electric: { accent: "text-electric", iconBg: "from-electric/20 to-cyan/15 border-electric/30", badge: "border-electric/30 bg-electric/5 text-electric", hover: "group-hover:border-electric/50", glow: "shadow-[0_0_40px_rgba(37,99,235,0.25)]" },
+            teal: { accent: "text-teal", iconBg: "from-teal/20 to-cyan/15 border-teal/30", badge: "border-teal/30 bg-teal/5 text-teal", hover: "group-hover:border-teal/50", glow: "shadow-tealglow" },
+            pink: { accent: "text-pink", iconBg: "from-pink/20 to-electric/15 border-pink/30", badge: "border-pink/30 bg-pink/5 text-pink", hover: "group-hover:border-pink/50", glow: "shadow-[0_0_40px_rgba(236,72,153,0.25)]" }
+          };
+          const c = colorClasses[project.color || "cyan"];
+          // Alternating card heights and layouts for creative grid
+          const layoutVariants = [
+            { imgH: "h-56", titleSize: "text-2xl" },
+            { imgH: "h-44", titleSize: "text-xl" },
+            { imgH: "h-52", titleSize: "text-2xl" },
+            { imgH: "h-40", titleSize: "text-lg" }
+          ];
+          const layout = layoutVariants[i % 4];
+          return (
+            <Reveal key={project.title} delay={i * 0.08}>
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white/70 shadow-md backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                {/* Image header */}
+                <div className={`relative ${layout.imgH} overflow-hidden bg-slate-100`}>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/85 via-white/30 to-transparent" />
+                  {/* Corner category badge */}
+                  <div className="absolute right-3 top-3">
+                    <span className={`inline-flex items-center gap-1 rounded-full border ${c.badge} bg-white/90 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider backdrop-blur-md`}>
+                      <span className={`h-1.5 w-1.5 rounded-full ${c.accent.replace("text-", "bg-")}`} />
+                      {project.category}
+                    </span>
+                  </div>
+                  {/* Floating icon badge */}
+                  <div className="absolute left-4 bottom-4">
+                    <div className={`relative grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${c.iconBg} border bg-white/95 shadow-lg backdrop-blur-md ${c.glow}`}>
+                      <project.icon className={`h-6 w-6 ${c.accent}`} />
                     </div>
-                    {"courses" in item && item.courses ? (
-                      <div className="mt-6 rounded-2xl bg-gradient-to-r from-blush/[0.03] to-sky/[0.03] p-5 ring-1 ring-blush/10">
-                        <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-blush">Courses</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {item.courses.map((course) => (
-                            <span key={course} className="rounded-full bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm ring-1 ring-slate-200 dark:bg-white/5 dark:text-slate-200 dark:ring-white/10">
-                              {course}
-                            </span>
-                          ))}
+                  </div>
+                </div>
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className={`${layout.titleSize} font-semibold leading-tight text-slate-900`}>{project.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{project.summary}</p>
+                  {/* Stats with dividers */}
+                  <div className="mt-4 flex flex-wrap gap-1.5 border-t border-slate-200 pt-4">
+                    {project.impact.map((tag) => (
+                      <span
+                        key={tag}
+                        className={`inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-2.5 py-0.5 text-[11px] font-medium text-slate-700 transition ${c.hover}`}
+                      >
+                        <CheckCircle2 className={`h-3 w-3 ${c.accent}`} />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                {/* Hover accent strip */}
+                <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan via-electric to-teal opacity-60 transition-opacity group-hover:opacity-100" />
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+
+      {/* Certifications */}
+      <Reveal>
+        <div className="mt-16">
+          <h3 className="mb-6 flex items-center gap-3 text-2xl font-semibold text-slate-900">
+            <BadgeCheck className="h-5 w-5 text-cyan" />
+            Professional Certifications
+          </h3>
+
+          {/* Interactive workflow block */}
+          <div className="mb-8 -mx-4 sm:-mx-6 lg:-mx-8">
+            <N8nWorkflowBlock />
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {certifications.map((cert, index) => (
+              <Reveal key={cert.title} delay={index * 0.04}>
+                <a
+                  href={cert.link}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-cyan/50 hover:shadow-xl"
+                >
+                  {/* Top accent bar */}
+                  <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan via-electric to-teal opacity-80 transition-opacity group-hover:opacity-100" />
+
+                  {/* Top row: badge + year */}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-3">
+                      <div className="relative shrink-0">
+                        <div className="absolute inset-0 rounded-xl bg-cyan/20 blur-md" />
+                        <div className="relative grid h-12 w-12 place-items-center rounded-xl border border-cyan/30 bg-gradient-to-br from-cyan/15 to-electric/10">
+                          <Award className="h-5 w-5 text-cyan" />
                         </div>
                       </div>
-                    ) : null}
-                    <div className="mt-6 grid gap-6 md:grid-cols-2">
-                      <div className="rounded-2xl bg-white/40 p-5 ring-1 ring-slate-200/60 dark:bg-white/[0.02] dark:ring-white/5">
-                        <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-blush">
-                          Responsibilities
+                      <div className="min-w-0">
+                        <h4 className="text-base font-semibold leading-snug text-slate-900">
+                          {cert.title}
                         </h4>
-                        <ul className="space-y-2.5 text-slate-600 dark:text-slate-300">
-                          {item.responsibilities.map((line) => (
-                            <li key={line} className="flex gap-2 text-sm leading-6">
-                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blush/40" />
-                              {line}
-                            </li>
-                          ))}
-                        </ul>
+                        <p className="mt-1 text-xs font-medium text-slate-500">
+                          {cert.issuer}
+                        </p>
                       </div>
-                      <div className="rounded-2xl bg-white/40 p-5 ring-1 ring-slate-200/60 dark:bg-white/[0.02] dark:ring-white/5">
-                        <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-blush">
-                          Achievements
-                        </h4>
-                        <ul className="space-y-2.5 text-slate-600 dark:text-slate-300">
-                          {item.achievements.map((line) => (
-                            <li key={line} className="flex gap-2 text-sm leading-6">
-                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-sky/40" />
-                              {line}
-                            </li>
-                          ))}
-                        </ul>
+                    </div>
+                    <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-cyan/30 bg-cyan/5 px-2.5 py-1 text-[11px] font-bold text-cyan">
+                      {cert.year}
+                    </span>
+                  </div>
+
+                  {/* Credential footer */}
+                  <div className="mt-auto flex items-center justify-between border-t border-slate-200 pt-4">
+                    <div className="flex items-center gap-1.5">
+                      <BadgeCheck className="h-3.5 w-3.5 text-emerald-500" />
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">
+                        Verified
+                      </span>
+                    </div>
+                    <span className="rounded-md bg-slate-100 px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-slate-600 transition group-hover:bg-cyan/10 group-hover:text-cyan">
+                      {cert.credential}
+                    </span>
+                  </div>
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ---------- PROGRAMS ---------- */
+function ProgramsSection() {
+  return (
+    <Section
+      id="programs"
+      bg="bg-section-programs"
+      eyebrow="Programs & Campaigns"
+      title={
+        <>
+          Healthcare programs &{" "}
+          <span className="gradient-text">awareness campaigns.</span>
+        </>
+      }
+      intro="Field-driven programs and campaigns designed to translate public health priorities into measurable community impact."
+    >
+      <div className="relative">
+        {/* Vertical timeline line */}
+        <div className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-cyan/50 via-teal/30 to-transparent md:block" />
+        <div className="space-y-6">
+          {programs.map((program, i) => (
+            <Reveal key={program.title} delay={i * 0.08}>
+              <div className="relative md:pl-14">
+                <div className="absolute left-0 top-6 hidden h-4 w-4 rounded-full bg-gradient-to-br from-cyan to-electric shadow-cyanglow md:block">
+                  <span className="absolute inset-0 rounded-full animate-ping bg-cyan/40" />
+                </div>
+                <article className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-card-projects shadow-sm p-6 transition holographic">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3">
+                        <span className="rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan">
+                          {program.year}
+                        </span>
+                        <span className="text-xs text-slate-400">Program</span>
                       </div>
+                      <h3 className="mt-3 text-xl font-semibold text-slate-900">{program.title}</h3>
+                      <p className="mt-2 text-sm leading-7 text-slate-500">{program.description}</p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-cyan/20 bg-cyan/5 px-4 py-3">
+                      <TrendingUp className="h-4 w-4 text-cyan" />
+                      <span className="text-sm font-semibold text-cyan">{program.metric}</span>
                     </div>
                   </div>
                 </article>
@@ -242,108 +715,318 @@ function Experience() {
           ))}
         </div>
       </div>
+
+      {/* Training */}
+      <Reveal>
+        <div className="mt-16">
+          <h3 className="mb-6 flex items-center gap-3 text-2xl font-semibold text-slate-900">
+            <GraduationCap className="h-5 w-5 text-cyan" />
+            Specialized Training
+          </h3>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {trainings.map((training, index) => (
+              <Reveal key={training.title} delay={index * 0.04}>
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-card-programs shadow-sm p-5 transition">
+                  <div className="flex items-start gap-3">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-teal/20 to-cyan/20 border border-teal/30 text-teal">
+                      <BookOpen className="h-4 w-4" />
+                    </span>
+                    <div className="min-w-0">
+                      <h4 className="text-sm font-semibold leading-snug text-slate-900">{training.title}</h4>
+                      <p className="mt-1 text-xs text-slate-500">{training.provider}</p>
+                    </div>
+                  </div>
+                  <div className="mt-auto flex items-center justify-between pt-4">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-teal/10 border border-teal/30 px-2.5 py-0.5 text-[11px] font-semibold text-teal">
+                      {training.year}
+                    </span>
+                    <span className="text-[11px] text-slate-400">{training.type}</span>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ---------- CASE STUDIES ---------- */
+function CaseStudiesSection() {
+  return (
+    <Section
+      id="case-studies"
+      bg="bg-section-cases"
+      eyebrow="Case Studies"
+      title={
+        <>
+          Success stories in{" "}
+          <span className="gradient-text">public health impact.</span>
+        </>
+      }
+      intro="A closer look at the methodology, interventions, and outcomes behind selected programs."
+    >
+      <div className="space-y-10">
+        {caseStudies.map((study, i) => (
+          <Reveal key={study.title} delay={i * 0.08}>
+            <article className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/85 shadow-md transition-all duration-500 hover:shadow-2xl">
+              {/* Header strip */}
+              <div className="flex items-center justify-between gap-4 border-b border-slate-200 bg-gradient-to-r from-cyan/5 via-electric/5 to-teal/5 px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <div className="absolute inset-0 rounded-xl bg-cyan/20 blur-md" />
+                    <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-cyan/30 bg-gradient-to-br from-cyan/15 to-electric/10">
+                      <study.icon className="h-5 w-5 text-cyan" />
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan">
+                      Case Study · 0{i + 1}
+                    </p>
+                    <h3 className="text-lg font-semibold text-slate-900">
+                      {study.title}
+                    </h3>
+                  </div>
+                </div>
+                <span className="hidden items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-700 sm:inline-flex">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  Success
+                </span>
+              </div>
+
+              {/* Pipeline */}
+              <div className="grid gap-0 md:grid-cols-3">
+                <PipelineStep
+                  index={1}
+                  label="Challenge"
+                  body={study.challenge}
+                  color="cyan"
+                  isLast={false}
+                />
+                <PipelineStep
+                  index={2}
+                  label="Approach"
+                  body={study.approach}
+                  color="electric"
+                  isLast={false}
+                />
+                <PipelineStep
+                  index={3}
+                  label="Outcome"
+                  body={study.outcome}
+                  color="teal"
+                  isLast
+                />
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function PipelineStep({
+  index,
+  label,
+  body,
+  color,
+  isLast
+}: {
+  index: number;
+  label: string;
+  body: string;
+  color: "cyan" | "electric" | "teal";
+  isLast: boolean;
+}) {
+  const colorMap = {
+    cyan: { dot: "bg-cyan", text: "text-cyan", border: "border-cyan/30" },
+    electric: {
+      dot: "bg-electric",
+      text: "text-electric",
+      border: "border-electric/30"
+    },
+    teal: { dot: "bg-teal", text: "text-teal", border: "border-teal/30" }
+  };
+  const c = colorMap[color];
+
+  return (
+    <div
+      className={`relative p-6 ${
+        !isLast
+          ? "border-b border-slate-200 md:border-b-0 md:border-r"
+          : ""
+      }`}
+    >
+      {/* Connector arrow (md+) */}
+      {!isLast && (
+        <div className="absolute right-0 top-1/2 hidden h-px w-6 -translate-y-1/2 translate-x-full bg-gradient-to-r from-slate-300 to-transparent md:block" />
+      )}
+
+      <div className="flex items-center gap-2">
+        <span
+          className={`grid h-6 w-6 place-items-center rounded-full ${c.dot} text-[10px] font-bold text-white shadow-sm`}
+        >
+          {index}
+        </span>
+        <span
+          className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${c.text}`}
+        >
+          {label}
+        </span>
+      </div>
+      <p className="mt-3 text-sm leading-6 text-slate-600">{body}</p>
+    </div>
+  );
+}
+
+/* ---------- INITIATIVES ---------- */
+function InitiativesSection() {
+  return (
+    <section
+      id="initiatives"
+      className="relative overflow-hidden bg-section-initiatives"
+    >
+      {/* Full-width digital health background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(120deg, rgba(255,255,255,0.55) 0%, rgba(224,242,254,0.35) 50%, rgba(186,230,253,0.20) 100%), url(/images/digital-health-bg.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundBlendMode: "normal"
+        }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl section-pad">
+        <Reveal>
+          <div className="mb-8 max-w-3xl sm:mb-12">
+            <span className="eyebrow">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
+              Public Awareness
+            </span>
+            <h2 className="mt-5 font-display text-3xl leading-[1.1] text-balance sm:text-4xl md:text-5xl text-slate-900">
+              Public awareness{" "}
+              <span className="gradient-text">initiatives & impact.</span>
+            </h2>
+            <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+              Initiatives that translate evidence into accessible health knowledge and lasting community outcomes. Hover any card to reveal the full story.
+            </p>
+          </div>
+        </Reveal>
+      {/* Single row of 4 compact cards */}
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {initiatives.map((item, i) => (
+          <Reveal key={item.title} delay={i * 0.07}>
+            <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white/85 shadow-md transition-all duration-500 hover:-translate-y-2 hover:border-cyan/50 hover:shadow-2xl">
+              {/* Image header */}
+              <div className="relative h-44 w-full overflow-hidden bg-slate-100">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
+                <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-white/30 bg-white/95 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-cyan-700">
+                  <item.icon className="h-3 w-3" />
+                  Initiative
+                </div>
+                <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border border-emerald-300 bg-emerald-50/95 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-emerald-700">
+                  {item.year}
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="text-base font-semibold leading-snug text-slate-900">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-xs font-medium leading-5 text-cyan-700">
+                  {item.summary}
+                </p>
+
+                <div className="mt-auto flex items-center justify-between border-t border-slate-200 pt-3">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-cyan/30 bg-cyan/5 px-2 py-0.5 text-[10px] font-bold text-cyan">
+                    {item.metric}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-cyan transition group-hover:gap-2">
+                    Details
+                    <ArrowRight className="h-3 w-3" />
+                  </span>
+                </div>
+              </div>
+
+              {/* Hover pop-up overlay */}
+              <div className="pointer-events-none absolute inset-0 flex flex-col justify-center gap-3 rounded-2xl bg-gradient-to-br from-ink/95 via-ink/92 to-electric/40 p-5 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:pointer-events-auto group-hover:opacity-100">
+                <div className="grid h-12 w-12 place-items-center rounded-xl border border-cyan/40 bg-cyan/10 backdrop-blur">
+                  <item.icon className="h-5 w-5 text-cyan" />
+                </div>
+                <div className="text-white">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.25em] text-cyan">
+                    Full Story
+                  </p>
+                  <h4 className="mt-1.5 text-lg font-semibold leading-tight">
+                    {item.title}
+                  </h4>
+                  <p className="mt-2 text-[11px] leading-5 text-white/85">
+                    {item.detail}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-cyan/40 bg-cyan/10 px-2 py-0.5 text-[10px] font-semibold text-cyan">
+                      {item.metric}
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white/80">
+                      {item.year}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
       </div>
     </section>
   );
 }
 
-function Skills() {
+/* ---------- RESEARCH / PUBLICATIONS ---------- */
+function ResearchSection() {
   return (
-    <SkillsFeatureSection
-      skills={skills}
-      eyebrow="Skills"
-      title="Public health capabilities with research and implementation depth."
-      intro="Core competencies developed through field experience, research, M&E, teaching, and community engagement across Nepal."
-    />
-  );
-}
-
-function Certifications() {
-  return (
-    <Section id="certifications" eyebrow="Credentials" title="Professional certifications & training in public health and global health leadership." intro="Verified credentials from leading institutions and hands-on training across research, M&E, health systems, epidemiology, project management, and social inclusion.">
-      <Reveal>
-        <div className="mb-6 flex items-center gap-3">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-blush/10 text-blush">
-            <BadgeCheck className="h-4 w-4" />
-          </span>
-          <h3 className="text-lg font-semibold">Certifications</h3>
-        </div>
-      </Reveal>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {certifications.map((cert, index) => (
-          <Reveal key={cert.title} delay={index * 0.04}>
-            <a
-              href={cert.link}
-              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-white/60 p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blush/10 dark:border-white/10 dark:bg-white/5"
-            >
-              <div className="absolute right-0 top-0 h-20 w-20 rounded-bl-[2rem] bg-gradient-to-bl from-blush/[0.04] to-transparent" />
-              <div className="relative flex items-start gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-blush/20 to-sky/20 text-blush">
-                  <BadgeCheck className="h-5 w-5" />
-                </span>
-                <div className="min-w-0">
-                  <h3 className="text-sm font-semibold leading-snug">{cert.title}</h3>
-                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{cert.issuer}</p>
+    <Section
+      id="research"
+      bg="bg-section-research"
+      eyebrow="Research & Publications"
+      title={
+        <>
+          Peer-reviewed research &{" "}
+          <span className="gradient-text">thought leadership.</span>
+        </>
+      }
+      intro="Publications, working papers, and reports advancing evidence in public health, NTDs, health systems, and youth engagement."
+    >
+      <div className="grid gap-4 md:grid-cols-2">
+        {publications.map((pub, i) => (
+          <Reveal key={pub.title} delay={i * 0.05}>
+            <article className="group flex items-start gap-4 rounded-2xl border border-slate-200/80 bg-card-research shadow-sm p-5 transition">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-cyan/20 to-electric/20 border border-cyan/30">
+                <FileText className="h-5 w-5 text-cyan" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="rounded-full border border-cyan/30 bg-cyan/10 px-2 py-0.5 text-[10px] font-semibold text-cyan">
+                    {pub.type}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400">{pub.year}</span>
                 </div>
+                <h3 className="mt-2 text-base font-semibold leading-snug text-slate-900">{pub.title}</h3>
+                <p className="mt-1 text-xs text-slate-500">{pub.venue}</p>
               </div>
-              <div className="relative mt-auto flex items-center justify-between pt-4">
-                <span className="inline-flex items-center gap-1 rounded-full bg-blush/10 px-2.5 py-0.5 text-[11px] font-semibold text-blush">
-                  {cert.year}
-                </span>
-                <span className="text-[11px] text-slate-400 transition group-hover:text-blush">{cert.credential}</span>
-              </div>
-            </a>
-          </Reveal>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function Training() {
-  return (
-    <Section id="training" eyebrow="Training" title="Hands-on training in public health research, data, and program delivery." intro="Practical skill-building across health emergency response, qualitative research, data analysis, child health, and communication for development.">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {trainings.map((training, index) => (
-          <Reveal key={training.title} delay={index * 0.04}>
-            <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-white/60 p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky/10 dark:border-white/10 dark:bg-white/5">
-              <div className="absolute right-0 top-0 h-20 w-20 rounded-bl-[2rem] bg-gradient-to-bl from-sky/[0.04] to-transparent" />
-              <div className="relative flex items-start gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-sky/20 to-blush/20 text-sky">
-                  <GraduationCap className="h-5 w-5" />
-                </span>
-                <div className="min-w-0">
-                  <h3 className="text-sm font-semibold leading-snug">{training.title}</h3>
-                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{training.provider}</p>
-                </div>
-              </div>
-              <div className="relative mt-auto flex items-center justify-between pt-4">
-                <span className="inline-flex items-center gap-1 rounded-full bg-sky/10 px-2.5 py-0.5 text-[11px] font-semibold text-sky">
-                  {training.year}
-                </span>
-                <span className="text-[11px] text-slate-400">{training.type}</span>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-
-function CommunityImpact() {
-  return (
-    <Section id="impact" eyebrow="Community Impact" title="Health education, youth empowerment, and access to well-being.">
-      <div className="grid gap-6 lg:grid-cols-3">
-        {impact.map((item, index) => (
-          <Reveal key={item.title} delay={index * 0.08}>
-            <article className="overflow-hidden rounded-3xl glass shadow-luxury">
-              <div className="aspect-[16/10] bg-cover bg-center" style={{ backgroundImage: `url(${item.image})` }} />
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold">{item.title}</h3>
-                <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">{item.detail}</p>
-              </div>
+              <ArrowUpRight className="h-4 w-4 shrink-0 text-slate-300 transition group-hover:text-cyan" />
             </article>
           </Reveal>
         ))}
@@ -352,139 +1035,251 @@ function CommunityImpact() {
   );
 }
 
-function Achievements() {
-  const orbitalData = [
-    { id: 1, title: "Recognition", date: "2024", content: "Awarded for outstanding contributions to public health research and community programming.", category: "Honors", icon: "Award", relatedIds: [2, 5], status: "completed" as const, energy: 100 },
-    { id: 2, title: "Leadership", date: "2023-2025", content: "Led multi-stakeholder health programs across NTD coordination, M&E, and institutional capacity building.", category: "Leadership", icon: "Network", relatedIds: [1, 3, 4], status: "completed" as const, energy: 95 },
-    { id: 3, title: "Speaking Events", date: "2023-2025", content: "Invited speaker at public health conferences, university guest lectures, and community health forums.", category: "Engagement", icon: "Megaphone", relatedIds: [2, 4], status: "in-progress" as const, energy: 75 },
-    { id: 4, title: "Certifications", date: "2022-2024", content: "Professional credentials from Johns Hopkins, WHO, UN Women, and leading global health institutions.", category: "Credentials", icon: "GraduationCap", relatedIds: [2, 3, 5], status: "completed" as const, energy: 90 },
-    { id: 5, title: "Media", date: "2023-2025", content: "Featured in public health publications, research reports, and community health awareness campaigns.", category: "Outreach", icon: "Sparkles", relatedIds: [1, 4, 6], status: "completed" as const, energy: 80 },
-    { id: 6, title: "Awards", date: "2024", content: "Recognized for excellence in health program implementation and evidence-based community impact.", category: "Honors", icon: "Award", relatedIds: [1, 5], status: "pending" as const, energy: 60 },
+/* ---------- TESTIMONIALS ---------- */
+function TestimonialsSection() {
+  const circularTestimonials = [
+    {
+      quote:
+        "Nishu brings a rare balance of public health insight, community connection, and implementation discipline. A trusted partner for evidence-based programs across South Asia.",
+      name: "Dr. Anjali Sharma",
+      designation: "Director of Programs, Global Health NGO",
+      src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1368&auto=format&fit=crop"
+    },
+    {
+      quote:
+        "A thoughtful leader who understands how to build trust across teams, communities, and partner networks. Their work consistently elevates public health outcomes in Nepal.",
+      name: "Rajesh Karki",
+      designation: "Community Health Coordinator, Nepal",
+      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1368&auto=format&fit=crop"
+    },
+    {
+      quote:
+        "An evidence-driven public health professional with the rare ability to translate data into community action. A pleasure to collaborate with on field research in Kathmandu Valley.",
+      name: "Dr. Maya Pradhan",
+      designation: "Senior Research Fellow, Public Health",
+      src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1368&auto=format&fit=crop"
+    },
+    {
+      quote:
+        "Professional, composed, and deeply committed to creating value that lasts beyond a single project. Their strategic thinking shaped our health system priorities in eastern Nepal.",
+      name: "Suresh Adhikari",
+      designation: "Hospital Administrator, Chatara Hospital",
+      src: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1368&auto=format&fit=crop"
+    }
   ];
 
   return (
-    <Section id="achievements" eyebrow="Achievements" title="Credibility across public health, research, teaching, and community action.">
-      <RadialOrbitalTimeline timelineData={orbitalData} />
-    </Section>
-  );
-}
-
-function Gallery() {
-  const items = [
-    { name: "Public Health Events", image: "/gallery/public-health.jpg" },
-    { name: "Program Workshops", image: "/gallery/workshops.jpg" },
-    { name: "Community Events", image: "/gallery/community.jpg" },
-    { name: "Teaching Sessions", image: "/gallery/teaching.jpg" },
-    { name: "Field Visits", image: "/gallery/field-visits.jpg" },
-    { name: "Research Forums", image: "/gallery/research.jpg" },
-  ];
-  return (
-    <Section id="gallery" eyebrow="Photo Gallery" title="Luxury masonry moments for a public-facing profile.">
-      <div className="masonry">
-        {items.map(({ name, image }, index) => (
-          <Reveal key={name} delay={index * 0.04}>
-            <div className="overflow-hidden rounded-3xl glass shadow-luxury">
-              <div
-                className="bg-cover bg-center"
-                style={{
-                  height: `${index % 2 === 0 ? 280 : 360}px`,
-                  backgroundImage: `url(${image})`
-                }}
-              />
-              <div className="p-5">
-                <h3 className="font-semibold">{name}</h3>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function Testimonials() {
-  const testimonialImages = [
-    "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=600&auto=format&fit=crop",
-  ];
-  const circularData = testimonials.map((t, i) => ({
-    quote: t.quote,
-    name: t.name,
-    designation: t.role,
-    src: testimonialImages[i % testimonialImages.length],
-  }));
-  return (
-    <Section id="testimonials" eyebrow="Testimonials" title="Professional recommendations with executive restraint.">
-      <div className="flex justify-center">
+    <Section
+      id="testimonials"
+      bg="bg-section-testimonials"
+      eyebrow="Testimonials"
+      title={
+        <>
+          Voices of{" "}
+          <span className="gradient-text">collaboration.</span>
+        </>
+      }
+      intro="Reflections from partners, mentors, and colleagues across the public health ecosystem."
+    >
+      <Reveal>
         <CircularTestimonials
-          testimonials={circularData}
+          testimonials={circularTestimonials}
           autoplay={true}
           colors={{
-            name: "#0a0a0a",
-            designation: "#6b7280",
-            testimony: "#4b5563",
-            arrowBackground: "#d9467b",
+            name: "#0f172a",
+            designation: "#0891b2",
+            testimony: "#475569",
+            arrowBackground: "#0891b2",
             arrowForeground: "#ffffff",
-            arrowHoverBackground: "#be185d",
+            arrowHoverBackground: "#0e7490"
           }}
           fontSizes={{
-            name: "28px",
-            designation: "20px",
-            quote: "20px",
+            name: "1.75rem",
+            designation: "0.95rem",
+            quote: "1.125rem"
           }}
         />
-      </div>
+      </Reveal>
     </Section>
   );
 }
 
-function Blog() {
+/* ---------- COLLABORATIONS ---------- */
+function CollaborationsSection() {
   return (
-    <Section id="blog" eyebrow="Blog" title="Thought leadership across public health, evidence, equity, and community programs.">
-      <div className="grid gap-4 md:grid-cols-2">
-        {blogPosts.map((post, index) => (
-          <Reveal key={post} delay={index * 0.05}>
-            <article className="group flex items-center justify-between gap-5 rounded-3xl border border-slate-200/70 p-6 transition hover:bg-white/50 dark:border-white/10 dark:hover:bg-white/5">
-              <h3 className="text-xl font-semibold">{post}</h3>
-              <ArrowRight className="h-5 w-5 shrink-0 transition group-hover:translate-x-1" />
-            </article>
-          </Reveal>
-        ))}
+    <section id="collaborations" className="relative overflow-hidden bg-section-collaborations">
+      <div className="mx-auto max-w-7xl px-5 pt-24 pb-16 sm:px-8 lg:px-12">
+        <Reveal>
+          <div className="mb-12 max-w-3xl">
+            <span className="eyebrow">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
+              Partners & Collaborations
+            </span>
+            <h2 className="mt-5 font-display text-4xl leading-[1.1] text-balance sm:text-5xl text-white">
+              Trusted by{" "}
+              <span className="gradient-text">global health leaders.</span>
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-white/70">
+              Working alongside respected institutions, governments, and NGOs to advance public health outcomes.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Single marquee — big logos, no boxes, no labels */}
+        <div className="relative overflow-hidden py-6">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-ink to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-ink to-transparent" />
+          <div className="flex w-max animate-ticker">
+            {[...collaborations, ...collaborations].map((collab, i) => (
+              <div
+                key={`r1-${collab.name}-${i}`}
+                className="flex shrink-0 items-center justify-center px-12"
+              >
+                <img
+                  src={collab.logo}
+                  alt={collab.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-28 w-28 object-contain transition-transform duration-500 hover:scale-110"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }
 
-function Contact() {
+/* ---------- CONTACT ---------- */
+function ContactSection() {
   return (
-    <Section id="contact" eyebrow="Contact" title="Start a high-signal conversation.">
-      <div className="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
+    <Section
+      id="contact"
+      bg="bg-section-contact"
+      eyebrow="Contact & Consultation"
+      title={
+        <>
+          Start a high-signal{" "}
+          <span className="gradient-text">conversation.</span>
+        </>
+      }
+      intro="Available for consulting, advisory work, research collaborations, speaking engagements, and program partnerships in public health and healthcare."
+    >
+      <div className="grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
         <Reveal>
           <div className="space-y-4">
             {contactItems.map(({ label, value, icon: Icon, href }) => (
-              <a key={label} href={href} className="flex items-center gap-4 rounded-3xl glass p-5 shadow-luxury transition hover:-translate-y-1">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blush text-white">
+              <a
+                key={label}
+                href={href}
+                className="group flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-card-contact shadow-sm p-5 transition"
+              >
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-cyan/20 to-electric/20 border border-cyan/30 text-cyan transition group-hover:shadow-cyanglow">
                   <Icon className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block text-sm text-slate-500 dark:text-slate-400">{label}</span>
-                  <span className="font-semibold">{value}</span>
+                  <span className="block text-xs uppercase tracking-[0.2em] text-slate-500">{label}</span>
+                  <span className="font-semibold text-slate-900">{value}</span>
                 </span>
+                <ArrowUpRight className="ml-auto h-4 w-4 text-slate-300 transition group-hover:text-cyan" />
               </a>
             ))}
+
+            <div className="mt-6 rounded-2xl border border-cyan/30 bg-gradient-to-br from-cyan/10 to-electric/5 p-6">
+              <div className="flex items-center gap-2">
+                <CircleDot className="h-4 w-4 text-emerald-400 animate-pulse" />
+                <span className="text-xs uppercase tracking-[0.2em] text-emerald-300">Booking open</span>
+              </div>
+              <h4 className="mt-3 text-lg font-semibold text-slate-900">Schedule a consultation</h4>
+              <p className="mt-2 text-sm text-slate-500">
+                30-minute discovery call to discuss your public health program, research, or advisory need.
+              </p>
+              <a
+                href={profile.calendar}
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink to-electric px-5 py-2.5 text-sm font-semibold text-white shadow-cyanglow transition hover:shadow-glow-strong"
+              >
+                <CalendarDays className="h-4 w-4" />
+                Book a meeting
+              </a>
+            </div>
           </div>
         </Reveal>
+
         <Reveal delay={0.1}>
-          <form className="rounded-3xl glass p-6 shadow-luxury">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input className="rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-blush dark:border-white/10 dark:bg-white/5" placeholder="Name" aria-label="Name" />
-              <input className="rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-blush dark:border-white/10 dark:bg-white/5" placeholder="Email" type="email" aria-label="Email" />
+          <form className="rounded-3xl border border-slate-200/80 bg-card-contact shadow-sm p-7 holographic">
+            <h3 className="text-xl font-semibold text-slate-900">Send a message</h3>
+            <p className="mt-1 text-sm text-slate-500">Tell me about your project or program — I&apos;ll respond within 48 hours.</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="name" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  required
+                  maxLength={100}
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  maxLength={120}
+                  inputMode="email"
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow"
+                  placeholder="you@org.com"
+                />
+              </div>
             </div>
-            <input className="mt-4 w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-blush dark:border-white/10 dark:bg-white/5" placeholder="Subject" aria-label="Subject" />
-            <textarea className="mt-4 min-h-36 w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-blush dark:border-white/10 dark:bg-white/5" placeholder="Message" aria-label="Message" />
-            <button type="button" className="mt-4 inline-flex items-center gap-2 rounded-full bg-blush px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 shadow-roseglow">
-              Send Message <Send className="h-4 w-4" />
+            <div className="mt-4">
+              <label htmlFor="org" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Organization</label>
+              <input
+                id="org"
+                name="organization"
+                autoComplete="organization"
+                maxLength={150}
+                className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow"
+                placeholder="NGO, hospital, university..."
+              />
+            </div>
+            <div className="mt-4">
+              <label htmlFor="interest" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Interest</label>
+              <select
+                id="interest"
+                name="interest"
+                className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50"
+              >
+                <option>Program design consulting</option>
+                <option>Research collaboration</option>
+                <option>Speaking engagement</option>
+                <option>M&E and capacity building</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div className="mt-4">
+              <label htmlFor="message" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                maxLength={2000}
+                className="mt-1 min-h-32 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow"
+                placeholder="Briefly describe your project or question..."
+              />
+            </div>
+            <button
+              type="button"
+              className="group mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink to-electric px-6 py-3 text-sm font-semibold text-white shadow-cyanglow transition hover:shadow-glow-strong"
+            >
+              Send Message
+              <Send className="h-4 w-4 transition group-hover:translate-x-1" />
             </button>
           </form>
         </Reveal>
@@ -493,27 +1288,173 @@ function Contact() {
   );
 }
 
+/* ---------- FOOTER ---------- */
 function Footer() {
   return (
-    <footer className="px-5 pb-8 sm:px-8 lg:px-12">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-3xl border border-slate-200/70 p-6 dark:border-white/10 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p className="font-display text-2xl">{profile.name}</p>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Copyright © 2026. All rights reserved.</p>
+    <footer className="relative overflow-hidden bg-gradient-to-br from-[#0a1a3a] via-[#0e2354] to-[#0a1a3a] px-5 pb-8 pt-16 sm:px-8 lg:px-12">
+      {/* Decorative glows */}
+      <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-cyan/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-electric/20 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 rounded-full bg-teal/10 blur-3xl" />
+
+      {/* Animated grid pattern */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(34,211,238,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.3) 1px, transparent 1px)",
+          backgroundSize: "40px 40px"
+        }}
+      />
+
+      <div className="relative mx-auto max-w-7xl">
+        {/* Top: Big brand + tagline */}
+        <div className="flex flex-col items-start gap-6 border-b border-cyan/20 pb-10 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className="absolute inset-0 rounded-2xl bg-cyan/40 blur-md" />
+                <span className="relative grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-cyan to-electric border border-cyan/50 shadow-lg">
+                  <Stethoscope className="h-5 w-5 text-white" />
+                </span>
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold text-white">{profile.name}</p>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
+                  Public Health · Healthcare
+                </p>
+              </div>
+            </div>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-white/70">
+              Designing evidence-based health programs, advancing research, and strengthening community
+              well-being through data-driven public health leadership.
+            </p>
+          </div>
+
+          {/* Newsletter form */}
+          <form className="flex w-full max-w-md gap-2" onSubmit={(e) => e.preventDefault()}>
+            <div className="relative flex-1">
+              <label htmlFor="newsletter" className="sr-only">Email</label>
+              <input
+                id="newsletter"
+                name="email"
+                type="email"
+                autoComplete="email"
+                maxLength={120}
+                className="w-full rounded-full border border-cyan/30 bg-white/10 px-5 py-3 text-sm text-white placeholder-white/50 outline-none backdrop-blur-md transition focus:border-cyan focus:bg-white/15"
+                placeholder="Subscribe to insights"
+              />
+            </div>
+            <button
+              type="button"
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-electric px-6 py-3 text-sm font-bold text-ink shadow-lg shadow-cyan/30 transition hover:scale-105 hover:shadow-xl hover:shadow-cyan/50"
+            >
+              Join
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </button>
+          </form>
         </div>
-        <div className="flex flex-wrap gap-4 text-sm text-slate-600 dark:text-slate-300">
-          {["About", "Experience", "Work", "Impact", "Contact"].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-blush">
-              {item}
+
+        {/* Middle: Link columns */}
+        <div className="grid gap-10 py-10 md:grid-cols-4">
+          <div>
+            <h4 className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan">
+              <span className="h-px w-6 bg-cyan" />
+              Navigate
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              {[
+                { label: "About", href: "#about" },
+                { label: "Expertise", href: "#expertise" },
+                { label: "Projects", href: "#projects" },
+                { label: "Programs", href: "#programs" },
+                { label: "Research", href: "#research" },
+                { label: "Contact", href: "#contact" }
+              ].map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="group inline-flex items-center gap-2 text-white/70 transition hover:text-cyan"
+                  >
+                    <span className="h-1 w-1 rounded-full bg-cyan/40 transition group-hover:w-4 group-hover:bg-cyan" />
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan">
+              <span className="h-px w-6 bg-cyan" />
+              Specializations
+            </h4>
+            <ul className="space-y-2.5 text-sm text-white/70">
+              <li>Public Health Strategy</li>
+              <li>Epidemiology & Research</li>
+              <li>Program Design</li>
+              <li>Monitoring & Evaluation</li>
+              <li>Health Equity</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan">
+              <span className="h-px w-6 bg-cyan" />
+              Connect
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {socials.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
+                    className="group relative grid h-11 w-11 place-items-center rounded-xl border border-cyan/30 bg-white/5 text-cyan transition hover:border-cyan hover:bg-cyan hover:text-ink"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                );
+              })}
+            </div>
+            <p className="mt-4 text-xs leading-relaxed text-white/50">
+              {profile.location}
+              <br />
+              {profile.email}
+            </p>
+          </div>
+
+          <div>
+            <h4 className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan">
+              <span className="h-px w-6 bg-cyan" />
+              Get in touch
+            </h4>
+            <a
+              href="#contact"
+              className="group block rounded-2xl border border-cyan/30 bg-gradient-to-br from-cyan/10 to-electric/5 p-4 transition hover:border-cyan/60"
+            >
+              <p className="text-sm font-semibold text-white">Let&apos;s collaborate</p>
+              <p className="mt-1 text-xs text-white/60">
+                Open for consulting, research partnerships, and program advisory.
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-cyan">
+                Book a meeting
+                <ArrowRight className="h-3 w-3 transition group-hover:translate-x-1" />
+              </span>
             </a>
-          ))}
+          </div>
         </div>
-        <form className="flex max-w-sm gap-2">
-          <input className="min-w-0 rounded-full border border-slate-200 bg-white/70 px-4 py-2 text-sm outline-none dark:border-white/10 dark:bg-white/5" placeholder="Newsletter email" aria-label="Newsletter email" />
-          <button type="button" className="rounded-full bg-blush px-4 py-2 text-sm font-semibold text-white">
-            Join
-          </button>
-        </form>
+
+        {/* Bottom: Big signature + copyright */}
+        <div className="flex flex-col items-start justify-between gap-4 border-t border-cyan/20 pt-6 md:flex-row md:items-center">
+          <p className="text-xs text-white/50">
+            © 2026 {profile.name}. All rights reserved. Built with care for public health.
+          </p>
+          <p className="font-display text-2xl font-bold uppercase tracking-[0.2em] gradient-text sm:text-3xl">
+            Healthy Communities
+          </p>
+        </div>
       </div>
     </footer>
   );
