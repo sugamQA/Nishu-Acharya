@@ -501,44 +501,9 @@ function ExpertiseSection() {
             </div>
             <span className="text-xs uppercase tracking-[0.2em] text-cyan">Self-assessed proficiency</span>
           </div>
-          <div className="mt-8 grid gap-6 lg:grid-cols-5">
-            {/* Bar chart */}
-            <div className="lg:col-span-3">
-              <svg viewBox="0 0 800 420" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
-                <defs>
-                  <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#3b82f6" />
-                    <stop offset="100%" stopColor="#06b6d4" />
-                  </linearGradient>
-                </defs>
-                {[0, 20, 40, 60, 80, 100].map((v) => {
-                  const x = 140 + v * 6;
-                  return (
-                    <g key={v}>
-                      <line x1={x} y1="18" x2={x} y2="390" stroke="#e2e8f0" strokeWidth="1" />
-                      <text x={x} y="14" textAnchor="middle" className="text-[10px] fill-slate-400" fontSize="10">{v}%</text>
-                    </g>
-                  );
-                })}
-                <line x1="140" y1="390" x2="740" y2="390" stroke="#cbd5e1" strokeWidth="1.5" />
-                {skills.map((s, i) => {
-                  const barY = 25 + i * 37;
-                  const barH = 26;
-                  const barW = (s.value / 100) * 600;
-                  return (
-                    <g key={s.name}>
-                      <text x="135" y={barY + barH / 2 + 4} textAnchor="end" className="text-[11px] fill-slate-600 font-medium" fontSize="11">{s.name}</text>
-                      <rect x="140" y={barY} width="600" height={barH} rx="4" fill="#f1f5f9" />
-                      <rect x="140" y={barY} width={barW} height={barH} rx="4" fill="url(#barGrad)" opacity="0.85" />
-                      <text x={140 + barW + 8} y={barY + barH / 2 + 3} className="text-[11px] fill-slate-800 font-bold" fontSize="11">{s.value}%</text>
-                    </g>
-                  );
-                })}
-              </svg>
-            </div>
-
+          <div className="mt-8 flex flex-col items-center">
             {/* Pie chart */}
-            <div className="lg:col-span-2 flex flex-col items-center justify-center">
+            <div className="w-full max-w-md">
               <svg viewBox="0 0 400 400" className="w-full max-w-[340px] h-auto">
                 {(() => {
                   const total = skills.reduce((sum, s) => sum + s.value, 0);
