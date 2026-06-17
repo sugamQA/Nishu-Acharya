@@ -1256,6 +1256,37 @@ function CollaborationsSection() {
 function ContactSection() {
   const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [contactError, setContactError] = useState<string>("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  // RFC 5322 simplified email regex — covers 99% of real emails
+  const isValidEmail = (email: string): boolean => {
+    if (!email) return false;
+    if (email.length > 254) return false;
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(email.trim());
+  };
+
+  const validateContact = (payload: { name: string; email: string; message: string; organization?: string; interest?: string }): Record<string, string> => {
+    const errors: Record<string, string> = {};
+    if (!payload.name || payload.name.trim().length < 2) {
+      errors.name = "Please enter your name (min 2 characters)";
+    }
+    if (payload.name && payload.name.trim().length > 100) {
+      errors.name = "Name is too long (max 100 characters)";
+    }
+    if (!payload.email) {
+      errors.email = "Email is required";
+    } else if (!isValidEmail(payload.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+    if (!payload.message || payload.message.trim().length < 10) {
+      errors.message = "Please enter a message (min 10 characters)";
+    }
+    if (payload.message && payload.message.trim().length > 2000) {
+      errors.message = "Message is too long (max 2000 characters)";
+    }
+    return errors;
+  };
 
   return (
     <Section
@@ -1313,6 +1344,7 @@ function ContactSection() {
         <Reveal delay={0.1}>
           <form
             className="rounded-3xl border border-slate-200/80 bg-card-contact shadow-sm p-7 holographic"
+            noValidate
             onSubmit={async (e) => {
               e.preventDefault();
               if (contactStatus === "sending") return;
@@ -1325,13 +1357,22 @@ function ContactSection() {
                 interest: String(fd.get("interest") || "").trim(),
                 message: String(fd.get("message") || "").trim(),
               };
-              if (!payload.name || !payload.email || !payload.message) {
+
+              // Client-side validation
+              const errors = validateContact(payload);
+              setFieldErrors(errors);
+              if (Object.keys(errors).length > 0) {
                 setContactStatus("error");
-                setContactError("Please fill in your name, email, and message.");
+                setContactError("Please fix the highlighted fields below.");
+                // Focus the first invalid field
+                const firstError = Object.keys(errors)[0];
+                (form.querySelector(`[name="${firstError}"]`) as HTMLElement | null)?.focus();
                 return;
               }
+
               setContactStatus("sending");
               setContactError("");
+              setFieldErrors({});
               try {
                 const { submitContact } = await import("@/lib/api");
                 const r = await submitContact(payload);
@@ -1371,20 +1412,40 @@ function ContactSection() {
                 <p className="mt-1 text-sm text-slate-500">Tell me about your project or program — I&apos;ll respond within 48 hours.</p>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Name</label>
+                    <label htmlFor="name" className="text-[10px] uppercase tracking-[0.2em] text-cyan">
+                      Name <span className="text-red-500" aria-hidden="true">*</span>
+                      <span className="sr-only">required</span>
+                    </label>
                     <input
                       id="name"
                       name="name"
+                      type="text"
                       autoComplete="name"
                       required
                       maxLength={100}
+                      aria-required="true"
+                      aria-invalid={!!fieldErrors.name}
+                      aria-describedby={fieldErrors.name ? "name-error" : undefined}
                       disabled={contactStatus === "sending"}
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow disabled:opacity-60"
+                      onChange={() => setFieldErrors(prev => { const { name, ...rest } = prev; return rest; })}
+                      className={`mt-1 w-full rounded-xl border bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:shadow-cyanglow disabled:opacity-60 ${
+                        fieldErrors.name
+                          ? "border-red-400 focus:border-red-500"
+                          : "border-white/10 focus:border-cyan/50"
+                      }`}
                       placeholder="Your name"
                     />
+                    {fieldErrors.name && (
+                      <p id="name-error" className="mt-1.5 flex items-center gap-1 text-xs font-medium text-red-600" role="alert">
+                        <span aria-hidden="true">⚠</span> {fieldErrors.name}
+                      </p>
+                    )}
                   </div>
                   <div>
-                    <label htmlFor="email" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Email</label>
+                    <label htmlFor="email" className="text-[10px] uppercase tracking-[0.2em] text-cyan">
+                      Email <span className="text-red-500" aria-hidden="true">*</span>
+                      <span className="sr-only">required</span>
+                    </label>
                     <input
                       id="email"
                       name="email"
@@ -1393,10 +1454,23 @@ function ContactSection() {
                       required
                       maxLength={120}
                       inputMode="email"
+                      aria-required="true"
+                      aria-invalid={!!fieldErrors.email}
+                      aria-describedby={fieldErrors.email ? "email-error" : undefined}
                       disabled={contactStatus === "sending"}
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow disabled:opacity-60"
+                      onChange={() => setFieldErrors(prev => { const { email, ...rest } = prev; return rest; })}
+                      className={`mt-1 w-full rounded-xl border bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:shadow-cyanglow disabled:opacity-60 ${
+                        fieldErrors.email
+                          ? "border-red-400 focus:border-red-500"
+                          : "border-white/10 focus:border-cyan/50"
+                      }`}
                       placeholder="you@org.com"
                     />
+                    {fieldErrors.email && (
+                      <p id="email-error" className="mt-1.5 flex items-center gap-1 text-xs font-medium text-red-600" role="alert">
+                        <span aria-hidden="true">⚠</span> {fieldErrors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="mt-4">
@@ -1404,6 +1478,7 @@ function ContactSection() {
                   <input
                     id="org"
                     name="organization"
+                    type="text"
                     autoComplete="organization"
                     maxLength={150}
                     disabled={contactStatus === "sending"}
@@ -1427,16 +1502,32 @@ function ContactSection() {
                   </select>
                 </div>
                 <div className="mt-4">
-                  <label htmlFor="message" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Message</label>
+                  <label htmlFor="message" className="text-[10px] uppercase tracking-[0.2em] text-cyan">
+                    Message <span className="text-red-500" aria-hidden="true">*</span>
+                    <span className="sr-only">required</span>
+                  </label>
                   <textarea
                     id="message"
                     name="message"
                     required
                     maxLength={2000}
+                    aria-required="true"
+                    aria-invalid={!!fieldErrors.message}
+                    aria-describedby={fieldErrors.message ? "message-error" : undefined}
                     disabled={contactStatus === "sending"}
-                    className="mt-1 min-h-32 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow disabled:opacity-60"
+                    onChange={() => setFieldErrors(prev => { const { message, ...rest } = prev; return rest; })}
+                    className={`mt-1 min-h-32 w-full rounded-xl border bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:shadow-cyanglow disabled:opacity-60 ${
+                      fieldErrors.message
+                        ? "border-red-400 focus:border-red-500"
+                        : "border-white/10 focus:border-cyan/50"
+                    }`}
                     placeholder="Briefly describe your project or question..."
                   />
+                  {fieldErrors.message && (
+                    <p id="message-error" className="mt-1.5 flex items-center gap-1 text-xs font-medium text-red-600" role="alert">
+                      <span aria-hidden="true">⚠</span> {fieldErrors.message}
+                    </p>
+                  )}
                 </div>
                 {contactStatus === "error" && (
                   <div role="alert" className="mt-4 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
