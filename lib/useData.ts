@@ -2,16 +2,16 @@
 /**
  * Client-side data hook.
  *
- * Strategy: fetches from the cPanel API once on mount, then
- * **mutates the live objects** exported by lib/profile.ts in place,
- * so every existing component that imports from "@/lib/profile"
- * automatically reads the fresh data without any refactor.
+ * Returns the current data shape. If NEXT_PUBLIC_API_BASE is set,
+ * fetches from the cPanel API on mount AND when the page becomes visible,
+ * patches the live module-level objects so existing imports also see the
+ * fresh data, and triggers a re-render.
  *
- * Falls back to static data (lib/profile.ts) if no API is configured
- * (NEXT_PUBLIC_API_BASE) or if the request fails.
+ * Falls back to the static lib/profile.ts data if no API is configured
+ * or if the request fails.
  */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as Lucide from "lucide-react";
 import * as P from "./profile";
 import { fetchAll, HAS_REMOTE_API, ApiAll } from "./api";
@@ -26,25 +26,44 @@ function getIcon(name: string): any {
 }
 
 export function useData() {
+  // Bumping this counter forces a re-render after data is patched
+  const [, setTick] = useState(0);
+  const refresh = () => setTick(t => t + 1);
+
   useEffect(() => {
     if (!HAS_REMOTE_API) return;
-    let cancelled = false;
-    (async () => {
+
+    const loadData = async () => {
       try {
-        const api = await fetchAll();
-        if (cancelled) return;
+        const api = await fetchAll(true); // force fresh fetch
         applyApiToModule(api);
+        refresh();
       } catch (e) {
         console.error("[useData] failed to fetch, using fallback", e);
       }
-    })();
-    return () => { cancelled = true; };
+    };
+
+    // Load immediately
+    loadData();
+
+    // Refresh when the tab becomes visible again (in case admin updated while away)
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') loadData();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    // Refresh every 60s as a safety net
+    const interval = setInterval(loadData, 60_000);
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      clearInterval(interval);
+    };
   }, []);
 }
 
 function applyApiToModule(api: ApiAll) {
   const p = api.profile || {};
-  // Mutate profile object in place
   Object.assign(P.profile, {
     name: p.name || P.profile.name,
     headline: p.headline ?? P.profile.headline,
@@ -60,7 +79,6 @@ function applyApiToModule(api: ApiAll) {
     typingWords: (p.typing_words && p.typing_words.length ? p.typing_words : P.profile.typingWords),
   });
 
-  // Mutate arrays in place: clear then push
   const setArr = <T,>(arr: T[], items: T[]) => { arr.length = 0; arr.push(...items); };
 
   setArr(P.socials, (api.socials || []).map((s: any) => ({ label: s.label, href: s.href, icon: getIcon(s.icon) })));
@@ -102,7 +120,6 @@ function applyApiToModule(api: ApiAll) {
     title: b.title, excerpt: b.excerpt, date: b.published_at, readTime: b.read_time, category: b.category,
   })));
 
-  // contactItems
   P.contactItems.length = 0;
   if (P.profile.email) P.contactItems.push({ label: "Email", value: P.profile.email, icon: Lucide.Mail, href: `mailto:${P.profile.email}` });
   if (P.profile.linkedin) P.contactItems.push({ label: "LinkedIn", value: "linkedin.com/in/nishuacharya", icon: Lucide.Linkedin, href: P.profile.linkedin });

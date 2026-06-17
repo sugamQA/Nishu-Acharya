@@ -33,17 +33,16 @@ export type ApiAll = {
 };
 
 let memCache: { data: ApiAll; at: number } | null = null;
-const TTL = 30_000; // 30s
+const TTL = 10_000; // 10s
 
-export async function fetchAll(): Promise<ApiAll> {
+export async function fetchAll(force = false): Promise<ApiAll> {
   if (!HAS_REMOTE_API) {
-    // Lazy import static data
     const p = await import("./profile");
     return toApiShape(p);
   }
-  if (memCache && Date.now() - memCache.at < TTL) return memCache.data;
+  if (!force && memCache && Date.now() - memCache.at < TTL) return memCache.data;
   const r = await fetch(`${API_BASE}/index.php?resource=all&t=${Date.now()}`, {
-    next: { revalidate: 30 },
+    cache: "no-store",
   });
   if (!r.ok) throw new Error(`API ${r.status}`);
   const j = await r.json();
