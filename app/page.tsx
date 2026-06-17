@@ -49,9 +49,10 @@ import {
   timeline,
   trainings
 } from "@/lib/profile";
+import { useData } from "@/lib/useData";
 
 export default function Home() {
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  useData(); // fetches API data and patches the live profile module
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-ink text-slate-900">
@@ -1265,7 +1266,7 @@ function ContactSection() {
       <div className="grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
         <Reveal>
           <div className="space-y-4">
-            {contactItems.map(({ label, value, icon: Icon, href }) => (
+            {(contactItems || []).map(({ label, value, icon: Icon, href }: any) => (
               <a
                 key={label}
                 href={href}
@@ -1373,6 +1374,41 @@ function ContactSection() {
             <button
               type="button"
               className="group mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink to-electric px-6 py-3 text-sm font-semibold text-white shadow-cyanglow transition hover:shadow-glow-strong"
+              onClick={async (e) => {
+                const btn = e.currentTarget as HTMLButtonElement;
+                const form = btn.closest("form") as HTMLFormElement | null;
+                if (!form) return;
+                const fd = new FormData(form);
+                const payload = {
+                  name: String(fd.get("name") || ""),
+                  email: String(fd.get("email") || ""),
+                  organization: String(fd.get("organization") || ""),
+                  interest: String(fd.get("interest") || ""),
+                  message: String(fd.get("message") || ""),
+                };
+                if (!payload.name || !payload.email || !payload.message) {
+                  alert("Please fill in name, email, and message.");
+                  return;
+                }
+                btn.disabled = true;
+                const old = btn.textContent;
+                btn.textContent = "Sending…";
+                try {
+                  const { submitContact } = await import("@/lib/api");
+                  const r = await submitContact(payload);
+                  if (r.ok) {
+                    btn.textContent = "Sent ✓";
+                    form.reset();
+                    setTimeout(() => { btn.disabled = false; btn.textContent = old; }, 2000);
+                  } else {
+                    throw new Error(r.error || "Failed");
+                  }
+                } catch (err: any) {
+                  btn.textContent = old;
+                  btn.disabled = false;
+                  alert(err?.message || "Failed to send");
+                }
+              }}
             >
               Send Message
               <Send className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -1555,3 +1591,4 @@ function Footer() {
     </footer>
   );
 }
+

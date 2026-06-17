@@ -34,6 +34,20 @@ pnpm-debug.log*
 # vercel
 .vercel
 
+# backend (PHP) — uploaded to cPanel, not GitHub
+backend/
+/backend/
+backend/**/*
+
+# env files (never push real credentials)
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+!.env.example
+!.env.local.example
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
