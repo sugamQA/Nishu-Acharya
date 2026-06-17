@@ -9,7 +9,11 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "d8j0ntlcm91z4.cloudfront.net" }
+      { protocol: "https", hostname: "d8j0ntlcm91z4.cloudfront.net" },
+      { protocol: "https", hostname: "imperialholdings.com.np" },
+      { protocol: "https", hostname: "www.imperialholdings.com.np" },
+      { protocol: "https", hostname: "nishuacharya.com.np" },
+      { protocol: "https", hostname: "www.nishuacharya.com.np" }
     ]
   },
   async headers() {

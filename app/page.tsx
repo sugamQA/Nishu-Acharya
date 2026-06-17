@@ -1254,6 +1254,9 @@ function CollaborationsSection() {
 
 /* ---------- CONTACT ---------- */
 function ContactSection() {
+  const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [contactError, setContactError] = useState<string>("");
+
   return (
     <Section
       id="contact"
@@ -1308,115 +1311,161 @@ function ContactSection() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <form className="rounded-3xl border border-slate-200/80 bg-card-contact shadow-sm p-7 holographic">
-            <h3 className="text-xl font-semibold text-slate-900">Send a message</h3>
-            <p className="mt-1 text-sm text-slate-500">Tell me about your project or program — I&apos;ll respond within 48 hours.</p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div>
-                <label htmlFor="name" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Name</label>
-                <input
-                  id="name"
-                  name="name"
-                  autoComplete="name"
-                  required
-                  maxLength={100}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Email</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  maxLength={120}
-                  inputMode="email"
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow"
-                  placeholder="you@org.com"
-                />
-              </div>
-            </div>
-            <div className="mt-4">
-              <label htmlFor="org" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Organization</label>
-              <input
-                id="org"
-                name="organization"
-                autoComplete="organization"
-                maxLength={150}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow"
-                placeholder="NGO, hospital, university..."
-              />
-            </div>
-            <div className="mt-4">
-              <label htmlFor="interest" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Interest</label>
-              <select
-                id="interest"
-                name="interest"
-                className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50"
-              >
-                <option>Program design consulting</option>
-                <option>Research collaboration</option>
-                <option>Speaking engagement</option>
-                <option>M&E and capacity building</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div className="mt-4">
-              <label htmlFor="message" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                maxLength={2000}
-                className="mt-1 min-h-32 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow"
-                placeholder="Briefly describe your project or question..."
-              />
-            </div>
-            <button
-              type="button"
-              className="group mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink to-electric px-6 py-3 text-sm font-semibold text-white shadow-cyanglow transition hover:shadow-glow-strong"
-              onClick={async (e) => {
-                const btn = e.currentTarget as HTMLButtonElement;
-                const form = btn.closest("form") as HTMLFormElement | null;
-                if (!form) return;
-                const fd = new FormData(form);
-                const payload = {
-                  name: String(fd.get("name") || ""),
-                  email: String(fd.get("email") || ""),
-                  organization: String(fd.get("organization") || ""),
-                  interest: String(fd.get("interest") || ""),
-                  message: String(fd.get("message") || ""),
-                };
-                if (!payload.name || !payload.email || !payload.message) {
-                  alert("Please fill in name, email, and message.");
-                  return;
+          <form
+            className="rounded-3xl border border-slate-200/80 bg-card-contact shadow-sm p-7 holographic"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              if (contactStatus === "sending") return;
+              const form = e.currentTarget;
+              const fd = new FormData(form);
+              const payload = {
+                name: String(fd.get("name") || "").trim(),
+                email: String(fd.get("email") || "").trim(),
+                organization: String(fd.get("organization") || "").trim(),
+                interest: String(fd.get("interest") || "").trim(),
+                message: String(fd.get("message") || "").trim(),
+              };
+              if (!payload.name || !payload.email || !payload.message) {
+                setContactStatus("error");
+                setContactError("Please fill in your name, email, and message.");
+                return;
+              }
+              setContactStatus("sending");
+              setContactError("");
+              try {
+                const { submitContact } = await import("@/lib/api");
+                const r = await submitContact(payload);
+                if (r.ok) {
+                  setContactStatus("success");
+                  form.reset();
+                } else {
+                  throw new Error(r.error || "Failed to send message");
                 }
-                btn.disabled = true;
-                const old = btn.textContent;
-                btn.textContent = "Sending…";
-                try {
-                  const { submitContact } = await import("@/lib/api");
-                  const r = await submitContact(payload);
-                  if (r.ok) {
-                    btn.textContent = "Sent ✓";
-                    form.reset();
-                    setTimeout(() => { btn.disabled = false; btn.textContent = old; }, 2000);
-                  } else {
-                    throw new Error(r.error || "Failed");
-                  }
-                } catch (err: any) {
-                  btn.textContent = old;
-                  btn.disabled = false;
-                  alert(err?.message || "Failed to send");
-                }
-              }}
-            >
-              Send Message
-              <Send className="h-4 w-4 transition group-hover:translate-x-1" />
-            </button>
+              } catch (err: any) {
+                setContactStatus("error");
+                setContactError(err?.message || "Failed to send. Please try again or email directly.");
+              }
+            }}
+          >
+            {contactStatus === "success" ? (
+              <div className="text-center py-6" role="status" aria-live="polite">
+                <div className="mx-auto mb-5 grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 shadow-glow-strong">
+                  <svg className="h-10 w-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900">Thank you! Your message has been received. 🎉</h3>
+                <p className="mt-3 text-base text-slate-600">We appreciate you reaching out.</p>
+                <p className="mt-2 text-sm text-slate-500">You&apos;ll get a reply within 48 hours.</p>
+                <button
+                  type="button"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-white px-6 py-3 text-sm font-semibold text-cyan transition hover:bg-cyan hover:text-white"
+                  onClick={() => setContactStatus("idle")}
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <>
+                <h3 className="text-xl font-semibold text-slate-900">Send a message</h3>
+                <p className="mt-1 text-sm text-slate-500">Tell me about your project or program — I&apos;ll respond within 48 hours.</p>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Name</label>
+                    <input
+                      id="name"
+                      name="name"
+                      autoComplete="name"
+                      required
+                      maxLength={100}
+                      disabled={contactStatus === "sending"}
+                      className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow disabled:opacity-60"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Email</label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      maxLength={120}
+                      inputMode="email"
+                      disabled={contactStatus === "sending"}
+                      className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow disabled:opacity-60"
+                      placeholder="you@org.com"
+                    />
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <label htmlFor="org" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Organization</label>
+                  <input
+                    id="org"
+                    name="organization"
+                    autoComplete="organization"
+                    maxLength={150}
+                    disabled={contactStatus === "sending"}
+                    className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow disabled:opacity-60"
+                    placeholder="NGO, hospital, university..."
+                  />
+                </div>
+                <div className="mt-4">
+                  <label htmlFor="interest" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Interest</label>
+                  <select
+                    id="interest"
+                    name="interest"
+                    disabled={contactStatus === "sending"}
+                    className="mt-1 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 disabled:opacity-60"
+                  >
+                    <option>Program design consulting</option>
+                    <option>Research collaboration</option>
+                    <option>Speaking engagement</option>
+                    <option>M&E and capacity building</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div className="mt-4">
+                  <label htmlFor="message" className="text-[10px] uppercase tracking-[0.2em] text-cyan">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    maxLength={2000}
+                    disabled={contactStatus === "sending"}
+                    className="mt-1 min-h-32 w-full rounded-xl border border-white/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan/50 focus:shadow-cyanglow disabled:opacity-60"
+                    placeholder="Briefly describe your project or question..."
+                  />
+                </div>
+                {contactStatus === "error" && (
+                  <div role="alert" className="mt-4 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <span aria-hidden="true">⚠️</span>
+                    <span>{contactError}</span>
+                  </div>
+                )}
+                <button
+                  type="submit"
+                  disabled={contactStatus === "sending"}
+                  className="group mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink to-electric px-6 py-3 text-sm font-semibold text-white shadow-cyanglow transition hover:shadow-glow-strong disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {contactStatus === "sending" ? (
+                    <>
+                      <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.25" strokeWidth="4" />
+                        <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                      </svg>
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="h-4 w-4 transition group-hover:translate-x-1" />
+                    </>
+                  )}
+                </button>
+              </>
+            )}
           </form>
         </Reveal>
       </div>
