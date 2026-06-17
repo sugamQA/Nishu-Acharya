@@ -428,8 +428,10 @@ function ExpertiseSection() {
     cyan: { text: "text-cyan", bg: "from-cyan/20", border: "border-cyan/30", glow: "shadow-cyanglow" },
     teal: { text: "text-teal", bg: "from-teal/20", border: "border-teal/30", glow: "shadow-tealglow" },
     electric: { text: "text-electric", bg: "from-electric/20", border: "border-electric/30", glow: "" },
-    neon: { text: "text-pink", bg: "from-pink/20", border: "border-pink/30", glow: "shadow-[0_0_40px_rgba(236,72,153,0.3)]" }
+    neon: { text: "text-pink", bg: "from-pink/20", border: "border-pink/30", glow: "shadow-[0_0_40px_rgba(236,72,153,0.3)]" },
+    pink: { text: "text-pink", bg: "from-pink/20", border: "border-pink/30", glow: "shadow-[0_0_40px_rgba(236,72,153,0.3)]" }
   };
+  const defaultColor = colorMap.cyan;
 
   return (
     <Section
@@ -446,7 +448,7 @@ function ExpertiseSection() {
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {expertise.map((item, i) => {
-          const c = colorMap[item.color];
+          const c = colorMap[item.color] || defaultColor;
           return (
             <Reveal key={item.title} delay={i * 0.05}>
               <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
@@ -945,9 +947,11 @@ function PipelineStep({
       text: "text-electric",
       border: "border-electric/30"
     },
-    teal: { dot: "bg-teal", text: "text-teal", border: "border-teal/30" }
+    teal: { dot: "bg-teal", text: "text-teal", border: "border-teal/30" },
+    neon: { dot: "bg-pink", text: "text-pink", border: "border-pink/30" },
+    pink: { dot: "bg-pink", text: "text-pink", border: "border-pink/30" }
   };
-  const c = colorMap[color];
+  const c = colorMap[color] || colorMap.cyan;
 
   return (
     <div
